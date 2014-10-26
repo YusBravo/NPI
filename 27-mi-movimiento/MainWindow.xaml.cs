@@ -71,6 +71,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>        
         private readonly Pen inferredBonePen = new Pen(Brushes.Gray, 1);
 
+        private float distanceMov27 = 0.5f;
         /// <summary>
         /// Active Kinect sensor
         /// </summary>
@@ -283,9 +284,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             this.DrawBone(skeleton, drawingContext, JointType.AnkleLeft, JointType.FootLeft);
 
             // Right Leg
-            this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight);
-            this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight);
-            this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight);
+            bool useMoveColour = true;
+            bool mov27status = isMove27(skeleton, distanceMov27);
+            this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight, useMoveColour,mov27status);
+            this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight, useMoveColour,mov27status);
+            this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight, useMoveColour,mov27status);
  
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
@@ -328,7 +331,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="drawingContext">drawing context to draw to</param>
         /// <param name="jointType0">joint to start drawing from</param>
         /// <param name="jointType1">joint to end drawing at</param>
-        private void DrawBone(Skeleton skeleton, DrawingContext drawingContext, JointType jointType0, JointType jointType1, bool correctMove=true)
+        private void DrawBone(Skeleton skeleton, DrawingContext drawingContext, JointType jointType0, JointType jointType1, bool usesBoneColour = false, bool movOK=true)
         {
             Joint joint0 = skeleton.Joints[jointType0];
             Joint joint1 = skeleton.Joints[jointType1];
@@ -347,8 +350,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 return;
             }
 
-            // We assume all drawn bones are inferred unless BOTH joints are tracked
+            // We assume all drawn bones are inferred unless BOTH joints are tracked           
             Pen drawPen = this.inferredBonePen;
+            if (joint0.TrackingState == JointTrackingState.Tracked && joint1.TrackingState == JointTrackingState.Tracked)
+            {
+                if (usesBoneColour)
+                {
+                    if (movOK)
+                    { drawPen = this.trackedBonePen; }
+                    else
+                    { drawPen = this.errorBonePen; }
+                }
+            }
       
             drawingContext.DrawLine(drawPen, this.SkeletonPointToScreen(joint0.Position), this.SkeletonPointToScreen(joint1.Position));
         }
@@ -371,6 +384,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     this.sensor.SkeletonStream.TrackingMode = SkeletonTrackingMode.Default;
                 }
             }
+        }
+
+        /// <summary>
+        /// Return if skeleton is in mov27 OK
+        /// </summary>
+        /// <param name="skeleton">skeleton to check</param>
+        /// <param name="distance">input data. Distance to move the foot</param>
+        private bool isMove27(Skeleton skeleton, float distance)
+        {
+            bool check = false;
+
+            return check;
         }
     }
 }
