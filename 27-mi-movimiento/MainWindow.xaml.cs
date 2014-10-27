@@ -435,21 +435,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="distance">input data. Distance to move the foot</param>
         private bool isMove27(Skeleton skeleton, float distance,StateMov stateMov)
         {
-            bool check = false;
+            bool check = false;            
             float initialDistanceBetweenKnees = 0.05f;
-            float onCourseDistanceBetweenKnees = 0.175f;
+            float onCourseDistanceBetweenKnees = 0.2f;
             float initialDistanceBetweenAnkles = 0.3f;
+            float initialDistanceHipAnkles = 0.1f;
+            float distanceHipKneeLeft = 0.1f;
             Joint ankleLeft = skeleton.Joints[JointType.AnkleLeft],
                   ankleRight = skeleton.Joints[JointType.AnkleRight],
                   kneeLeft = skeleton.Joints[JointType.KneeLeft],
-                  kneeRight = skeleton.Joints[JointType.KneeRight];
+                  kneeRight = skeleton.Joints[JointType.KneeRight],
+                  hipCenter = skeleton.Joints[JointType.HipCenter];
 
             switch (stateMov)
             {
                 case StateMov.INITIAL:
                     if ((ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles &&
                         (Math.Abs(kneeLeft.Position.Y - kneeRight.Position.Y) < initialDistanceBetweenKnees) &&
-                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees))
+                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees) &&
+                        ((Math.Abs(hipCenter.Position.X - ankleRight.Position.X) - Math.Abs(hipCenter.Position.X - ankleLeft.Position.X)) < initialDistanceHipAnkles))
                     {
                         check = true;
                     }
@@ -458,7 +462,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 case StateMov.DONEMOV:
                     if ((ankleRight.Position.X - ankleLeft.Position.X) > distance &&
                         (Math.Abs(kneeLeft.Position.Y - kneeRight.Position.Y) < onCourseDistanceBetweenKnees) &&
-                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees))
+                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees) &&
+                        (Math.Abs(hipCenter.Position.X - ankleLeft.Position.X) < distanceHipKneeLeft))
                     {
                         check = true;
                     }                        
