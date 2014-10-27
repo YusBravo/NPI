@@ -77,13 +77,22 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>        
         private readonly Pen inferredBonePen = new Pen(Brushes.Gray, 1);
 
+        /// <summary>
+        /// float used for establish distance
+        /// </summary> 
         private float distanceMov27 = 0.5f;
 
+        /// <summary>
+        /// enum uses for order state movement
+        /// </summary> 
         public enum StateMov
         {
             INITIAL, LETMOVE, DONEMOV
         };
 
+        /// <summary>
+        /// StateMov used for know actual state mov
+        /// </summary> 
         private StateMov stateMov = StateMov.INITIAL;
 
         /// <summary>
@@ -300,7 +309,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             // Right Leg
             bool useMoveColour = true;
 
-            if (isMove27(skeleton, distanceMov27, stateMov))
+            if (isMove27(skeleton, distanceMov27))
             {
                 switch (stateMov)
                 {
@@ -432,8 +441,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// Return if skeleton is in mov27 OK
         /// </summary>
         /// <param name="skeleton">skeleton to check</param>
-        /// <param name="distance">input data. Distance to move the foot</param>
-        private bool isMove27(Skeleton skeleton, float distance,StateMov stateMov)
+        /// <param name="distance">input data. Distance to move the foot</param>        
+        private bool isMove27(Skeleton skeleton, float distance)
         {
             bool check = false;            
             float initialDistanceBetweenKnees = 0.05f;
