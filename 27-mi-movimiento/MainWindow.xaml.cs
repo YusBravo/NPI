@@ -394,6 +394,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private bool isMove27(Skeleton skeleton, float distance)
         {
             bool check = false;
+            Joint ankleLeft = skeleton.Joints[JointType.AnkleLeft];
+            Joint ankleRight = skeleton.Joints[JointType.AnkleRight];
+
+            if ((ankleRight.Position.X - ankleLeft.Position.X) > distance)
+            {
+                check = true;
+            }
+
 
             return check;
         }
