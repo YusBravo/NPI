@@ -62,6 +62,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private readonly Pen trackedBonePen = new Pen(Brushes.Green, 6);
 
         /// <summary>
+        /// Pen used for drawing bones when move is in course from initial pos to OK
+        /// </summary>
+        private readonly Pen inCourseBonePen = new Pen(Brushes.Yellow, 6);
+
+        /// <summary>
         /// Pen used for drawing bones when an error move
         /// </summary>
         private readonly Pen errorBonePen = new Pen(Brushes.Red, 6);
@@ -72,6 +77,14 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private readonly Pen inferredBonePen = new Pen(Brushes.Gray, 1);
 
         private float distanceMov27 = 0.5f;
+
+        public enum StateMov
+        {
+            INITIAL, LETMOVE, DONEMOV
+        };
+
+        private StateMov stateMov = StateMov.INITIAL;
+
         /// <summary>
         /// Active Kinect sensor
         /// </summary>
@@ -285,10 +298,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             // Right Leg
             bool useMoveColour = true;
-            bool mov27status = isMove27(skeleton, distanceMov27);
-            this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight, useMoveColour,mov27status);
-            this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight, useMoveColour,mov27status);
-            this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight, useMoveColour,mov27status);
+
+            if (isMove27(skeleton, distanceMov27, stateMov))
+            {
+                switch (stateMov)
+                {
+                    case StateMov.INITIAL:
+                        stateMov = StateMov.LETMOVE;
+                        break;
+                    case StateMov.LETMOVE:
+                        stateMov = StateMov.DONEMOV;
+                        break;                    
+                }
+            }
+
+            this.DrawBone(skeleton, drawingContext, JointType.HipRight, JointType.KneeRight, useMoveColour);
+            this.DrawBone(skeleton, drawingContext, JointType.KneeRight, JointType.AnkleRight, useMoveColour);
+            this.DrawBone(skeleton, drawingContext, JointType.AnkleRight, JointType.FootRight, useMoveColour);
  
             // Render Joints
             foreach (Joint joint in skeleton.Joints)
@@ -356,10 +382,18 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 if (usesBoneColour)
                 {
-                    if (movOK)
-                    { drawPen = this.trackedBonePen; }
-                    else
-                    { drawPen = this.errorBonePen; }
+                    switch (stateMov)
+                    {
+                        case StateMov.INITIAL:
+                            drawPen = this.errorBonePen;
+                            break;
+                        case StateMov.LETMOVE:
+                            drawPen = this.inCourseBonePen;
+                            break;
+                        case StateMov.DONEMOV:
+                            drawPen = this.trackedBonePen;
+                            break;
+                    }                                  
                 }
             }
       
@@ -391,17 +425,28 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary>
         /// <param name="skeleton">skeleton to check</param>
         /// <param name="distance">input data. Distance to move the foot</param>
-        private bool isMove27(Skeleton skeleton, float distance)
+        private bool isMove27(Skeleton skeleton, float distance,StateMov stateMov)
         {
             bool check = false;
             Joint ankleLeft = skeleton.Joints[JointType.AnkleLeft];
             Joint ankleRight = skeleton.Joints[JointType.AnkleRight];
 
-            if ((ankleRight.Position.X - ankleLeft.Position.X) > distance)
+            switch (stateMov)
             {
-                check = true;
-            }
-
+                case StateMov.INITIAL:
+                    if ((ankleRight.Position.X - ankleLeft.Position.X) > 0.4)
+                    {
+                        check = true;
+                    }
+                    break;
+                case StateMov.LETMOVE:
+                    if ((ankleRight.Position.X - ankleLeft.Position.X) > distance)
+                    {
+                        check = true;
+                    }
+                    break;
+            }            
+            
 
             return check;
         }
