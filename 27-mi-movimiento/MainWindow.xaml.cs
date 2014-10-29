@@ -80,7 +80,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// float used for establish distance
         /// </summary> 
-        private float distanceMov27 = 0.5f;
+        private float distanceMov27 = 0.4f;
 
         /// <summary>
         /// enum uses for order state movement
@@ -445,41 +445,41 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private bool isMove27(Skeleton skeleton, float distance)
         {
             bool check = false;            
-            float initialDistanceBetweenKnees = 0.05f;
-            float onCourseDistanceBetweenKnees = 0.2f;
+            float initialDistanceBetweenKnees = 0.05f;            
             float initialDistanceBetweenAnkles = 0.3f;
             float initialDistanceHipAnkles = 0.1f;
             float distanceHipKneeLeft = 0.1f;
+            float distanceOnTheFloor = 0.2f;
             Joint ankleLeft = skeleton.Joints[JointType.AnkleLeft],
                   ankleRight = skeleton.Joints[JointType.AnkleRight],
                   kneeLeft = skeleton.Joints[JointType.KneeLeft],
                   kneeRight = skeleton.Joints[JointType.KneeRight],
-                  hipCenter = skeleton.Joints[JointType.HipCenter];
+                  hipCenter = skeleton.Joints[JointType.HipCenter];                  
 
             switch (stateMov)
             {
                 case StateMov.INITIAL:
-                    if ((ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles &&
-                        (Math.Abs(kneeLeft.Position.Y - kneeRight.Position.Y) < initialDistanceBetweenKnees) &&
-                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees) &&
-                        ((Math.Abs(hipCenter.Position.X - ankleRight.Position.X) - Math.Abs(hipCenter.Position.X - ankleLeft.Position.X)) < initialDistanceHipAnkles))
+                    if ((ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles && //Distance between ankles
+                        (Math.Abs(kneeLeft.Position.Y - kneeRight.Position.Y) < initialDistanceBetweenKnees) && //Distance Y between knees
+                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees) && //Distance Z between knees
+                        ((Math.Abs(hipCenter.Position.X - ankleRight.Position.X) - Math.Abs(hipCenter.Position.X - ankleLeft.Position.X)) < initialDistanceHipAnkles)) //Distance between kness - hip center
                     {
                         check = true;
                     }
                     break;
                 case StateMov.LETMOVE:
                 case StateMov.DONEMOV:
-                    if ((ankleRight.Position.X - ankleLeft.Position.X) > distance &&
-                        (Math.Abs(kneeLeft.Position.Y - kneeRight.Position.Y) < onCourseDistanceBetweenKnees) &&
-                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees) &&
+                    if ((ankleLeft.Position.Z - ankleRight.Position.Z) > distance &&
+                        (kneeRight.Position.Y - kneeLeft.Position.Y) < distanceOnTheFloor &&                      
+                        (ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles &&
                         (Math.Abs(hipCenter.Position.X - ankleLeft.Position.X) < distanceHipKneeLeft))
+                        
                     {
                         check = true;
                     }                        
                     break;
-            }            
-            
-
+            }
+                    
             return check;
         }
     }
