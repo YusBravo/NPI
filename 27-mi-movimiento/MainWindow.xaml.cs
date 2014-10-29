@@ -438,7 +438,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         }
 
         /// <summary>
-        /// Return if skeleton is in mov27 OK
+        /// Return if skeleton is in mov27 OK - José Francisco Bravo Sänchez
         /// </summary>
         /// <param name="skeleton">skeleton to check</param>
         /// <param name="distance">input data. Distance to move the foot</param>        
@@ -459,20 +459,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             switch (stateMov)
             {
                 case StateMov.INITIAL:
-                    if ((ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles && //Distance between ankles
-                        (Math.Abs(kneeLeft.Position.Y - kneeRight.Position.Y) < initialDistanceBetweenKnees) && //Distance Y between knees
-                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees) && //Distance Z between knees
-                        ((Math.Abs(hipCenter.Position.X - ankleRight.Position.X) - Math.Abs(hipCenter.Position.X - ankleLeft.Position.X)) < initialDistanceHipAnkles)) //Distance between kness - hip center
+                    if ((ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles && //X Distance between ankles
+                        (Math.Abs(kneeLeft.Position.Y - kneeRight.Position.Y) < initialDistanceBetweenKnees) && //Y Distance between knees
+                        (Math.Abs(kneeLeft.Position.Z - kneeRight.Position.Z) < initialDistanceBetweenKnees) && //Z Distance between knees
+                        ((Math.Abs(hipCenter.Position.X - ankleRight.Position.X) - Math.Abs(hipCenter.Position.X - ankleLeft.Position.X)) < initialDistanceHipAnkles)) //X Distance between kness - hip center
                     {
                         check = true;
                     }
                     break;
                 case StateMov.LETMOVE:
                 case StateMov.DONEMOV:
-                    if ((ankleLeft.Position.Z - ankleRight.Position.Z) > distance &&
-                        (kneeRight.Position.Y - kneeLeft.Position.Y) < distanceOnTheFloor &&                      
-                        (ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles &&
-                        (Math.Abs(hipCenter.Position.X - ankleLeft.Position.X) < distanceHipKneeLeft))
+                    if ((ankleLeft.Position.Z - ankleRight.Position.Z) > distance && //Z Distance between ankles (input method parameter)
+                        (kneeRight.Position.Y - kneeLeft.Position.Y) < distanceOnTheFloor &&     // Y distance between knees (on the floor)                  
+                        (ankleRight.Position.X - ankleLeft.Position.X) < initialDistanceBetweenAnkles && // X distance betwees ankles.
+                        (Math.Abs(hipCenter.Position.X - ankleLeft.Position.X) < distanceHipKneeLeft)) //X Distance between kness - hip center
                         
                     {
                         check = true;
