@@ -60,3 +60,13 @@ C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimient
 C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
 C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF.exe
 C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\bin\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\bin\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\MainWindow.baml
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\MainWindow.g.cs
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\App.g.cs
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF_MarkupCompile.cache
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF.g.resources
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
