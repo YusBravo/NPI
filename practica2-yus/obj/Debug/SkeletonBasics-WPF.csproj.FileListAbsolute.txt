@@ -1,0 +1,62 @@
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\bin\Debug\SkeletonBasics-WPF.exe
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\bin\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\MainWindow.baml
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\MainWindow.g.cs
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\App.g.cs
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF_MarkupCompile.cache
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.g.resources
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.exe
+C:\Users\Alberto\Documents\Visual Studio 2010\Projects\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.exe
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\bin\Debug\SkeletonBasics-WPF.exe
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\bin\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\MainWindow.baml
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\MainWindow.g.cs
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\App.g.cs
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF_MarkupCompile.cache
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.g.resources
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Users\Alberto\Documents\GitHub\NPI\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\bin\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\bin\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\MainWindow.baml
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\MainWindow.g.cs
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\App.g.cs
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF_MarkupCompile.cache
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.g.resources
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica1\27-mi-movimiento\SkeletonBasics NPI\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\bin\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\bin\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\MainWindow.baml
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\MainWindow.g.cs
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\App.g.cs
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF_MarkupCompile.cache
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.g.resources
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Users\Yusinho\Documents\GitHub\NPI\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\bin\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\bin\Debug\SkeletonBasics-WPF.pdb
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.csprojResolveAssemblyReference.cache
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\MainWindow.baml
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\MainWindow.g.cs
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\App.g.cs
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF_MarkupCompile.cache
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.g.resources
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\Microsoft.Samples.Kinect.SkeletonBasics.Properties.Resources.resources
+C:\Users\Yusinho\Desktop\Grado\Primer Cuatrimestre\NPI\practica2\27-mi-movimiento\obj\Debug\SkeletonBasics-WPF.csproj.GenerateResource.Cache
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF.exe
+C:\Users\Yusinho\Documents\GitHub\NPI\practica2-yus\obj\Debug\SkeletonBasics-WPF.pdb
