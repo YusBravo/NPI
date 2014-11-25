@@ -107,6 +107,25 @@
     <Resource Include="Images\UncheckedHover.png" />
     <Resource Include="Images\UncheckedNormal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\gold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bronze.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\silver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\nothing.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\poseArriba.png" />
+    <Resource Include="Images\poseEstandar.png" />
+    <Content Include="Music\audio.wav" />
+    <Content Include="Music\background.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

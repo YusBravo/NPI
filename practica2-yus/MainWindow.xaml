@@ -55,7 +55,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Margin="0 0 0 20">
-            <Image DockPanel.Dock="Left" Source="Images\Logo.png" Stretch="Fill" Height="32" Width="81" Margin="0 10 0 5"/>
+            <Image DockPanel.Dock="Left" Source="Images\Logo.png" Stretch="Fill" Height="32"  Width="81" Margin="0 10 0 5"/>
             <TextBlock DockPanel.Dock="Right" Margin="0 0 -1 0" VerticalAlignment="Bottom" Foreground="{StaticResource MediumGreyBrush}" FontFamily="Segoe UI" FontSize="18">Skeleton Basics</TextBlock>
             <Image Grid.Column="1" Source="Images\Status.png" Stretch="None" HorizontalAlignment="Center" Margin="0 0 0 5"/>
         </DockPanel>
@@ -64,7 +64,10 @@
         </Viewbox>
         <Grid Name="Grid" ClipToBounds="True">
             <Image Name="ColorImage" Width="593" Height="480"/>
-            <Image Name="Image" Width="593" Height="480"/>
+            <Image Name="Image" Width="593" Height="480" />
+            <Image Name="Medal" Source="Images\Gold.png" Visibility="Hidden" Width="100" HorizontalAlignment="Center" Margin="695,-110,202,131"/>
+            <Image Name="poseEstandar" Source="Images\poseEstandar.png" Visibility="Visible" Height="500" HorizontalAlignment="Center" Margin="424,180,432,160" Width="140" />
+            <MediaElement x:Name="backgroundMusic" Source="Music/audio.wav" Height="0" Width="0"  />
         </Grid>
         <CheckBox Grid.Row="2" Style="{StaticResource SquareCheckBox}" Content="Seated Mode" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 10 10 10" Name="checkBoxSeatedMode" Checked="CheckBoxSeatedModeChanged" Unchecked="CheckBoxSeatedModeChanged"/>
         <StatusBar Grid.Row="3" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
