@@ -125,6 +125,7 @@
     <Resource Include="Images\poseArribaAmbos.png" />
     <Resource Include="Images\poseArriba.png" />
     <Resource Include="Images\poseEstandar.png" />
+    <Resource Include="Images\mancuerna.png" />
     <Content Include="Music\audio.wav" />
     <Content Include="Music\background.mp3" />
   </ItemGroup>

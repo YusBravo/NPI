@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Skeleton Basics" Height="735" Width="1038.656" Loaded="WindowLoaded" Closing="WindowClosing">
 
-    <Window.Resources>
+    <Window.Resources>        
         <SolidColorBrush x:Key="MediumGreyBrush" Color="#ff6e6e6e"/>
         <SolidColorBrush x:Key="KinectPurpleBrush" Color="#ff52318f"/>
         <SolidColorBrush x:Key="KinectBlueBrush" Color="#ff00BCF2"/>
@@ -26,6 +26,7 @@
                                 </Grid>
                                 <TextBlock x:Name="SquareCheckBoxText" Text="{TemplateBinding Content}" TextAlignment="Left"  VerticalAlignment="Center" Foreground="{StaticResource KinectPurpleBrush}" FontSize="15"  Margin="9,0,0,0"/>
                             </StackPanel>
+                            <MediaElement x:Name="backgroundMusic"  Source="Music\background.mp3" Height="0" Width="0"  />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="false">
@@ -65,13 +66,16 @@
         <Grid Name="Grid" ClipToBounds="True">
             <Image Name="ColorImage" Width="593" Height="480"/>
             <Image Name="Image" Width="593" Height="480" />
-            <Image Name="Medal" Source="Images\Gold.png" Visibility="Hidden" Width="100" HorizontalAlignment="Center" Margin="695,-110,202,131"/>
-            <Image Name="poseEstandar" Source="Images\poseEstandar.png" Visibility="Visible" Height="500" HorizontalAlignment="Center" Margin="424,180,432,160" Width="140" />
-            <Image Name="poseArriba" Source="Images\poseArriba.png" Visibility="Hidden" Height="500" HorizontalAlignment="Center" Margin="424,180,432,160" Width="140" />
-            <Image Name="poseArribaAmbos" Source="Images\poseArribaAmbos.png"  Visibility="Hidden" Height="500" HorizontalAlignment="Center" Margin="424,180,432,160" Width="140" />
-            <Image Name="poseEstandarAmbos" Source="Images\poseEstandarAmbos.png" Visibility="Hidden" Height="500" HorizontalAlignment="Center" Margin="424,180,432,160" Width="140" />
-            <MediaElement x:Name="backgroundMusic" Source="Music/audio.wav" Height="0" Width="0"  />
-        </Grid>
+            <Canvas x:Name="canvas">
+                <Image Name="Medal" Source="Images\Gold.png" Visibility="Hidden" Width="100" HorizontalAlignment="Center" Canvas.Left ="699" Canvas.Top="65"/>
+                <Image Name="poseEstandar" Source="Images\poseEstandar.png" Visibility="Visible" Height="Auto" Width="140" HorizontalAlignment="Center" Canvas.Left ="424" Canvas.Top="110" />
+                <Image Name="poseArriba" Source="Images\poseArriba.png" Visibility="Hidden" Height="Auto" Width="140" HorizontalAlignment="Center" Canvas.Left ="424" Canvas.Top="180"/>
+                <Image Name="poseArribaAmbos" Source="Images\poseArribaAmbos.png"  Visibility="Hidden" Height="Auto" Width="140" HorizontalAlignment="Center" Canvas.Left ="424" Canvas.Top="180" />
+                <Image Name="poseEstandarAmbos" Source="Images\poseEstandarAmbos.png" Visibility="Hidden" Height="Auto" Width="140" HorizontalAlignment="Center" Canvas.Left ="424" Canvas.Top="180" />            
+                <Image Name="mancuerna" Source="Images\mancuerna.png" Visibility="Hidden" Canvas.Left="10" Canvas.Top="150" Width="60" HorizontalAlignment="Center"  />
+                <Image Name="mancuerna2" Source="Images\mancuerna.png" Visibility="Hidden" Canvas.Left="10" Canvas.Top="150" Width="60" HorizontalAlignment="Center"  />
+            </Canvas>                        
+        </Grid>        
         <CheckBox Grid.Row="2" Style="{StaticResource SquareCheckBox}" Content="Seated Mode" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 10 10 10" Name="checkBoxSeatedMode" Checked="CheckBoxSeatedModeChanged" Unchecked="CheckBoxSeatedModeChanged"/>
         <StatusBar Grid.Row="3" HorizontalAlignment="Stretch" Name="statusBar" VerticalAlignment="Bottom" Background="White" Foreground="{StaticResource MediumGreyBrush}">
             <StatusBarItem Padding="0 0 0 10">
