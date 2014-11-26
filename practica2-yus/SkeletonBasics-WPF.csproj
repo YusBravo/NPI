@@ -121,6 +121,8 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Resource Include="Images\poseEstandarAmbos.png" />
+    <Resource Include="Images\poseArribaAmbos.png" />
     <Resource Include="Images\poseArriba.png" />
     <Resource Include="Images\poseEstandar.png" />
     <Content Include="Music\audio.wav" />

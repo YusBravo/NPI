@@ -122,6 +122,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private bool feetOK = false;
 
         Point[] pointsBaseArmExercise = new Point[4];
+        Point[] pointsBaseArmExercise2 = new Point[4];
 
         public enum StateTracePoints
         {
@@ -130,6 +131,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
 
         StateTracePoints[] pointsBaseArmExerciseState = { StateTracePoints.INITIAL, 
+                                                          StateTracePoints.INITIAL, 
+                                                          StateTracePoints.INITIAL, 
+                                                          StateTracePoints.INITIAL 
+                                                        };
+
+        StateTracePoints[] pointsBaseArmExerciseState2 = { StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL 
@@ -146,15 +153,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private int puntuation = 0;
 
-        private int totalRepeats = 2;
+        private int totalPuntuation = 0;
 
-        private int totalSeries = 3;
+      //  private int totalRepeats = 2;
+
+        private int totalRepeats = 3;
+
+        private int actualCircleSerie = 0;
 
         private int actualRepeat = 0;
 
-        private int actualSerie = 0;
-
-        private int actualCircleSerie = 0;
+      //  private int actualCircleSerie = 0;
 
         TimeSpan medalTimeStart, medalTimeStop;
 
@@ -182,6 +191,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         {
             GOLD, SILVER, BRONZE, NONE
         };
+
+        private class ScoreBySerie
+        {
+            public MedalType medal;
+            public int puntuation;
+
+            public ScoreBySerie()
+            {
+                this.medal = MedalType.NONE;
+                this.puntuation = 0;
+            }
+        }
+
+        ScoreBySerie exercise1Score = new ScoreBySerie();
+        ScoreBySerie exercise2Score = new ScoreBySerie();
+        ScoreBySerie exercise3Score = new ScoreBySerie();
+
         /// <summary>
         /// Active Kinect sensor
         /// </summary>
@@ -412,12 +438,19 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         dc.DrawText(text, pText);                        
                     break;
                     case StateMov.LETMOVE:
-                        text = new FormattedText("Realiza los movimientos.  Serie Actual: "+actualSerie+"  Círculo actual: "+actualRepeat, CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 15, Brushes.Black);                        
+                       text = new FormattedText("Realiza los movimientos.  Repetición Actual: "+actualRepeat+"  Círculo actual: "+actualCircleSerie, CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 15, Brushes.Black);                        
+                  /*  text = new FormattedText(pointsBaseArmExercise[0] + " " + pointsBaseArmExercise[1] + " " + pointsBaseArmExercise[2] + " " + pointsBaseArmExercise[3] + "\n"+
+                                             pointsBaseArmExercise2[0] + " " + pointsBaseArmExercise2[1] + " " + pointsBaseArmExercise2[2] + " " + pointsBaseArmExercise2[3], CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 15, Brushes.Black);                        */
                         dc.DrawText(text, pText);
                         scoreText = new FormattedText("Puntuación: " + puntuation, CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 25, Brushes.White);
                         psText = new Point((RenderWidth / 2) - scoreText.Width / 2,  60);
-                        dc.DrawText(scoreText, psText);
+                        dc.DrawText(scoreText, psText);                        
                         this.DrawTracePoints(dc);
+
+                        if (actualTime == 2)
+                        {
+                            this.DrawTracePoints2(dc);
+                        }
                     break;
                     case StateMov.MEDALTIME:
                         switch (CheckMedalWon()){
@@ -444,17 +477,26 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         dc.DrawText(scoreText, psText);
                     break;
                     case StateMov.DONEMOV:
-                    text = new FormattedText("Ejercicio completado ¡Bien hecho!  Serie Actual: " + actualSerie + "  Círculo actual: " + actualRepeat, CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 15, Brushes.Black);
+                        text = new FormattedText("Ejercicio completado ¡Bien hecho!  Serie Actual: " + actualRepeat + "  Círculo actual: " + actualCircleSerie, CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 15, Brushes.Black);
                         dc.DrawText(text, pText);
                         scoreText = new FormattedText("Puntuación: " + puntuation, CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 25, Brushes.White);
                         psText = new Point((RenderWidth / 2) - scoreText.Width / 2,  60);
                         dc.DrawText(scoreText, psText);
+                    break;       
+                    case StateMov.FINISHED:
+                        text = new FormattedText("¡Has completado todas las series!", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 15, Brushes.Black);
+                        dc.DrawText(text, pText);
                     break;
-                }               
+                }
 
                 
-                ImageSource imageSource = new BitmapImage(new Uri("C:\\catSolo.png"));
-               // dc.DrawImage(imageSource, new Rect(50,50, 150, 150));
+                FormattedText scoreByExerciseText = new FormattedText(" Puntuación total: " + totalPuntuation +
+                                                                      "\n Ejercicio 1: " + exercise1Score.puntuation +" puntos " +exercise1Score.medal +
+                                                                      "\n Ejercicio 2: " + exercise2Score.puntuation + " puntos " + exercise2Score.medal +
+                                                                      "\n Ejercicio 3: " + exercise3Score.puntuation + " puntos " + exercise3Score.medal,
+                                                                       CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, Brushes.White);
+                Point sbeText = new Point((RenderWidth - scoreByExerciseText.Width - 10), RenderHeight - scoreByExerciseText.Height - 10);
+                dc.DrawText(scoreByExerciseText, sbeText);
 
                
             }
@@ -484,11 +526,79 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
-        private void ProgramMechanical(Skeleton skeleton)
+        private void ImagesManagement()
         {
-           // poseEstandar.Height = CalculateHeightUser(skeleton);            
+            // poseEstandar.Height = CalculateHeightUser(skeleton);            
             //poseEstandar.Margin = new Thickness(CalculatePosXUser(skeleton), 6, 629, -1);
             poseEstandar.Opacity = 0.50;
+            poseEstandarAmbos.Opacity = 0.50;
+
+            if (actualTime == 1)
+            {
+                poseArriba.RenderTransformOrigin = new Point(0.5, 0.5);
+                ScaleTransform flipTrans = new ScaleTransform();
+                flipTrans.ScaleX = -1;
+                poseArriba.RenderTransform = flipTrans;
+            }
+
+            if (actualRepeat == 0 && stateMov == StateMov.LETMOVE)
+            {
+                if (pointsBaseArmExerciseState[0] == StateTracePoints.INITIAL)
+                {
+                    if (actualTime == 2)
+                    {
+                        poseArribaAmbos.Visibility = Visibility.Visible;
+                        poseArribaAmbos.Opacity = 0.60;
+                    }
+                    else
+                    {
+                        poseArriba.Visibility = Visibility.Visible;
+                        poseArriba.Opacity = 0.60;
+
+                    }
+                }
+                else if (pointsBaseArmExerciseState[1] == StateTracePoints.INITIAL)
+                {
+                    if (actualTime == 2)
+                    {
+                        poseArribaAmbos.Opacity = 0.40;
+                    }
+                    else
+                    {
+                        poseArriba.Opacity = 0.40;
+                    }
+                }
+                else if (pointsBaseArmExerciseState[2] == StateTracePoints.INITIAL)
+                {
+                    if (actualTime == 2)
+                    {
+                        poseArribaAmbos.Opacity = 0.30;
+                    }
+                    else
+                    {
+                        poseArriba.Opacity = 0.30;
+                    }
+                }
+                else if (pointsBaseArmExerciseState[3] != StateTracePoints.INITIAL)
+                {
+                    if (actualTime == 2)
+                    {
+                        poseArribaAmbos.Opacity = 0;
+                        poseArribaAmbos.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        poseArriba.Opacity = 0;
+                        poseArriba.Visibility = Visibility.Hidden;
+                    }
+                }
+            }
+
+        }
+
+        private void ProgramMechanical(Skeleton skeleton)
+        {
+            ImagesManagement();
 
             if (MyFitnessExercise(skeleton, distanceMov27))
             {
@@ -497,6 +607,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     case StateMov.INITIAL:
                         stateMov = StateMov.LETMOVE;
                         poseEstandar.Visibility = Visibility.Hidden;
+                        poseEstandarAmbos.Visibility = Visibility.Hidden;
                         break;
                     case StateMov.LETMOVE:
                         stateMov = StateMov.MEDALTIME;
@@ -513,10 +624,25 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                         break;
                     case StateMov.DONEMOV:
                         actualTime++;
+
+                        if (actualTime == 1)
+                        {
+                            poseEstandar.RenderTransformOrigin = new Point(0.5, 0.5);
+                            ScaleTransform flipTrans = new ScaleTransform();
+                            flipTrans.ScaleX = -1;
+                            poseEstandar.RenderTransform = flipTrans;
+                            poseEstandar.Visibility = Visibility.Visible;
+                        }
+                        else if(actualTime == 2)
+                        {
+                            poseEstandarAmbos.Visibility = Visibility.Visible;
+                        }
+
                         if (actualTime != totalTimes)
                         {
                             RestartExerciseValues();
                             stateMov = StateMov.INITIAL;
+
                         }
                         else
                         {
@@ -537,8 +663,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         private void RestartExerciseValues()
         {
             puntuation = 0;
+            actualCircleSerie = 0;
             actualRepeat = 0;
-            actualSerie = 0;
             actualCircleSerie = 0;
             dirMov = DirectionMov.UP;
 
@@ -774,6 +900,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                             {
                                 check = true;
                                 CalculateTracePoints(skeleton);
+
+                                for (int i = 0; i < pointsBaseArmExercise.Length; i++)
+                                {
+                                    pointsBaseArmExercise2[i] = pointsBaseArmExercise[i];
+                                }
+
+                                armExercise = ArmRorL.LEFT;
+
+                                CalculateTracePoints(skeleton);
                             }
                             else
                             {
@@ -785,11 +920,20 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     }
                     break;
                 case StateMov.LETMOVE:
-                    CircleExercise stateMovCircle = CheckMov(skeleton);
+                    CircleExercise stateMovCircle;
+
+                    if (actualTime == 2)
+                    {
+                        stateMovCircle = CheckMovSimultaneous(skeleton);
+                    }
+                    else
+                    {
+                        stateMovCircle = CheckMov(skeleton);
+                    }
 
                     ChangePuntuation(stateMovCircle);
 
-                    if (actualSerie == totalSeries)
+                    if (actualRepeat == totalRepeats)
                     {
                         ChangePuntuation(CircleExercise.WELLDONE);
                         check = true;                        
@@ -800,7 +944,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     check = true;
                     break;
                 case StateMov.DONEMOV:
-                    if ((IsAlignedBody(skeleton) && AreArmDoneMov(skeleton) && AreArm90grades(skeleton) && AreFeetSeparate(skeleton)))
+                    if ((IsAlignedBody(skeleton) && AreArm90grades(skeleton) && AreFeetSeparate(skeleton)))
                     {
                        // check = true;
                     }
@@ -849,12 +993,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 check = true;
                 bodyOK = true;           
             }
-
-            return check;
-        }
-
-        private bool AreArmDoneMov(Skeleton received){
-            bool check = true;
 
             return check;
         }
@@ -952,11 +1090,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
 
             return check;
-        }
-
-        private bool AreArmInPosition()
-        {
-            return true;
         }
 
         //first position to be Tracked and Accepted
@@ -1130,6 +1263,32 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        private void DrawTracePoints2(DrawingContext drawingContext)
+        {
+            Brush circleBrush = Brushes.Gray;
+
+            for (int i = 0; i < pointsBaseArmExercise2.Length; i++)
+            {
+
+                switch (pointsBaseArmExerciseState2[i])
+                {
+                    case StateTracePoints.INITIAL:
+                        circleBrush = Brushes.Red;
+                        break;
+                    case StateTracePoints.ONEPASSED:
+                        circleBrush = Brushes.Yellow;
+                        break;
+                    case StateTracePoints.COMPLETE:
+                        circleBrush = Brushes.Green;
+                        break;
+                }
+
+                drawingContext.DrawEllipse(Brushes.White, null, pointsBaseArmExercise2[i], bigCircleRadius, bigCircleRadius);
+                drawingContext.DrawEllipse(circleBrush, null, pointsBaseArmExercise2[i], littleCircleRadius, littleCircleRadius);
+            }
+
+        }
+
         private CircleExercise CheckMov(Skeleton received)
         {
             CircleExercise actualMov = CircleExercise.INPROCESS;
@@ -1150,8 +1309,8 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             actualWristPoint = this.SkeletonPointToScreen(wrist.Position);
 
-            if (Math.Abs(actualWristPoint.Y - pointsBaseArmExercise[actualRepeat].Y) < (bigCircleRadius + AdmittedError) &&
-                Math.Abs(actualWristPoint.X - pointsBaseArmExercise[actualRepeat].X) < (bigCircleRadius + AdmittedError))
+            if (Math.Abs(actualWristPoint.Y - pointsBaseArmExercise[actualCircleSerie].Y) < (bigCircleRadius + AdmittedError) &&
+                Math.Abs(actualWristPoint.X - pointsBaseArmExercise[actualCircleSerie].X) < (bigCircleRadius + AdmittedError))
             {
                 actualMov = CircleExercise.WELLDONE;
                 NextPointState();
@@ -1159,40 +1318,40 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
             else
             {
-                int nextRepeat;
+                int nextCircleSerie;
 
                 if (dirMov == DirectionMov.DOWN)
                 {
-                    if (actualRepeat == 0)
+                    if (actualCircleSerie == 0)
                     {
-                        nextRepeat = 0;
+                        nextCircleSerie = 0;
                     }
                     else
                     {
-                        nextRepeat = actualRepeat - 1;
+                        nextCircleSerie = actualCircleSerie - 1;
                     }
 
-                    if ((actualWristPoint.Y > (pointsBaseArmExercise[actualRepeat].Y + bigCircleRadius + AdmittedError)) ||
-                        (actualWristPoint.X < (pointsBaseArmExercise[actualRepeat].X - bigCircleRadius - AdmittedError)) ||
-                        (actualWristPoint.X > (pointsBaseArmExercise[actualRepeat].X + bigCircleRadius + AdmittedError)))
+                    if ((actualWristPoint.Y > (pointsBaseArmExercise[actualCircleSerie].Y + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPoint.X < (pointsBaseArmExercise[actualCircleSerie].X - bigCircleRadius - AdmittedError)) ||
+                        (actualWristPoint.X > (pointsBaseArmExercise[actualCircleSerie].X + bigCircleRadius + AdmittedError)))
                     {
                         actualMov = CircleExercise.WRONG;
                     }
                 }
                 else
                 {
-                    if (actualRepeat == 3)
+                    if (actualCircleSerie == 3)
                     {
-                        nextRepeat = 3;
+                        nextCircleSerie = 3;
                     }
                     else
                     {
-                        nextRepeat = actualRepeat + 1;
+                        nextCircleSerie = actualCircleSerie + 1;
                     }
 
-                    if ((actualWristPoint.Y < (pointsBaseArmExercise[actualRepeat].Y + bigCircleRadius + AdmittedError)) ||
-                        (actualWristPoint.X < (pointsBaseArmExercise[actualRepeat].X - bigCircleRadius - AdmittedError)) ||
-                        (actualWristPoint.X > (pointsBaseArmExercise[actualRepeat].X + bigCircleRadius + AdmittedError))
+                    if ((actualWristPoint.Y < (pointsBaseArmExercise[actualCircleSerie].Y + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPoint.X < (pointsBaseArmExercise[actualCircleSerie].X - bigCircleRadius - AdmittedError)) ||
+                        (actualWristPoint.X > (pointsBaseArmExercise[actualCircleSerie].X + bigCircleRadius + AdmittedError))
                         )
                     {
                         actualMov = CircleExercise.WRONG;
@@ -1206,59 +1365,90 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         private void NextPointState()
         {
-            switch (pointsBaseArmExerciseState[actualRepeat])
+            switch (pointsBaseArmExerciseState[actualCircleSerie])
             {
                 case StateTracePoints.INITIAL:
-                    pointsBaseArmExerciseState[actualRepeat] = StateTracePoints.ONEPASSED;
+                    pointsBaseArmExerciseState[actualCircleSerie] = StateTracePoints.ONEPASSED;
+
+                    if (actualTime == 2)
+                    {
+                        pointsBaseArmExerciseState2[actualCircleSerie] = StateTracePoints.ONEPASSED;
+                    }
                 break;
                 case StateTracePoints.ONEPASSED:
-                    pointsBaseArmExerciseState[actualRepeat] = StateTracePoints.COMPLETE;
+                    pointsBaseArmExerciseState[actualCircleSerie] = StateTracePoints.COMPLETE;
+
+                    if (actualTime == 2)
+                    {
+                        pointsBaseArmExerciseState2[actualCircleSerie] = StateTracePoints.COMPLETE;
+                    }
                 break;
                 case StateTracePoints.COMPLETE:
-                    pointsBaseArmExerciseState[actualRepeat] = StateTracePoints.INITIAL;
+                    pointsBaseArmExerciseState[actualCircleSerie] = StateTracePoints.INITIAL;
+
+                    if (actualTime == 2)
+                    {
+                        pointsBaseArmExerciseState2[actualCircleSerie] = StateTracePoints.INITIAL;
+                    }
                 break;
             }
         }
 
         private void NextCircleMov()
         {
-            switch (actualRepeat)
+            switch (actualCircleSerie)
             {
                 case 0:
-                    actualRepeat = 2;
+                    actualCircleSerie = 2;
                     if(dirMov == DirectionMov.DOWN){
-                        actualSerie++;
+                        actualRepeat++;
                         for (int i = 0; i < pointsBaseArmExerciseState.Length; i++)
                         {
                             pointsBaseArmExerciseState[i] = StateTracePoints.INITIAL;
+
+                            if (actualTime == 2)
+                            {
+                                pointsBaseArmExerciseState2[i] = StateTracePoints.INITIAL;
+                            }
                         }
+
                         pointsBaseArmExerciseState[0] = StateTracePoints.ONEPASSED;
-                            dirMov = DirectionMov.UP;                        
+                        if (actualTime == 2)
+                        {
+                            pointsBaseArmExerciseState2[0] = StateTracePoints.ONEPASSED;
+                        }
+                        dirMov = DirectionMov.UP;                        
                     }
                 break;
                 case 1:
                     if (dirMov == DirectionMov.DOWN)
                     {
-                        actualRepeat = 2;
+                        actualCircleSerie = 2;
                     }
                     else
                     {
-                        actualRepeat = 3;
+                        actualCircleSerie = 3;
                     }
                 break;
                 case 2:
                     if (dirMov == DirectionMov.DOWN)
                     {
-                        actualRepeat = 0;
+                        actualCircleSerie = 0;
                     }
                     else
                     {
-                        actualRepeat = 1;
+                        actualCircleSerie = 1;
                     }
                 break;
                 case 3:
-                    actualRepeat = 1;
+                    actualCircleSerie = 1;
                     pointsBaseArmExerciseState[3] = StateTracePoints.COMPLETE;
+                    
+                    if (actualTime == 2)
+                    {
+                        pointsBaseArmExerciseState2[3] = StateTracePoints.COMPLETE;
+                    }
+
                     if(dirMov == DirectionMov.UP){                        
                         dirMov = DirectionMov.DOWN;                        
                     }
@@ -1290,7 +1480,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             /*
              * double percentageSuccess;
-            percentageSuccess = puntuation/((pointsBaseArmExercise.Length * totalSeries + 4*2) * 10);
+            percentageSuccess = puntuation/((pointsBaseArmExercise.Length * totalRepeats + 4*2) * 10);
 
             if (percentageSuccess > 90)
             {
@@ -1319,7 +1509,121 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 medalWon = MedalType.BRONZE;
             }
 
+            ActualizeExerciseScore(medalWon);
+
             return medalWon;
         }
+
+        private void ActualizeExerciseScore(MedalType medalWon)
+        {
+            switch (actualTime)
+            {
+                case 0:
+                    if (exercise1Score.puntuation == 0)
+                    {
+                        totalPuntuation += puntuation;
+                        exercise1Score.puntuation = puntuation;
+                        exercise1Score.medal = medalWon;
+                    }                    
+                    break;
+                case 1:
+                    if (exercise2Score.puntuation == 0)
+                    {
+                        totalPuntuation += puntuation;
+                        exercise2Score.puntuation = puntuation;
+                        exercise2Score.medal = medalWon;
+                    }
+                    break;
+                case 2:
+                    if (exercise3Score.puntuation == 0)
+                    {
+                        totalPuntuation += puntuation;
+                        exercise3Score.puntuation = puntuation;
+                        exercise3Score.medal = medalWon;
+                    }
+                    break;
+            }
+
+            
+        }
+
+
+        private CircleExercise CheckMovSimultaneous(Skeleton received)
+        {
+            CircleExercise actualMov = CircleExercise.INPROCESS;
+
+            Joint wristLeft, wristRight;
+            Point actualWristPointLeft, actualWristPointRight;
+
+            double AdmittedError = 4;
+           
+            wristLeft = received.Joints[JointType.WristLeft];
+            wristRight = received.Joints[JointType.WristRight];            
+
+            actualWristPointLeft = this.SkeletonPointToScreen(wristLeft.Position);
+            actualWristPointRight = this.SkeletonPointToScreen(wristRight.Position);
+
+            if (Math.Abs(actualWristPointLeft.Y - pointsBaseArmExercise[actualCircleSerie].Y) < (bigCircleRadius + AdmittedError) &&
+                Math.Abs(actualWristPointLeft.X - pointsBaseArmExercise[actualCircleSerie].X) < (bigCircleRadius + AdmittedError) &&
+                Math.Abs(actualWristPointRight.Y - pointsBaseArmExercise2[actualCircleSerie].Y) < (bigCircleRadius + AdmittedError) &&
+                Math.Abs(actualWristPointRight.X - pointsBaseArmExercise2[actualCircleSerie].X) < (bigCircleRadius + AdmittedError))
+            {
+                actualMov = CircleExercise.WELLDONE;
+                NextPointState();
+                NextCircleMov();
+            }
+            else
+            {
+                int nextCircleSerie;
+
+                if (dirMov == DirectionMov.DOWN)
+                {
+                    if (actualCircleSerie == 0)
+                    {
+                        nextCircleSerie = 0;
+                    }
+                    else
+                    {
+                        nextCircleSerie = actualCircleSerie - 1;
+                    }
+
+                    if ((actualWristPointLeft.Y > (pointsBaseArmExercise[actualCircleSerie].Y + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPointLeft.X < (pointsBaseArmExercise[actualCircleSerie].X - bigCircleRadius - AdmittedError)) ||
+                        (actualWristPointLeft.X > (pointsBaseArmExercise[actualCircleSerie].X + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPointRight.Y > (pointsBaseArmExercise2[actualCircleSerie].Y + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPointRight.X < (pointsBaseArmExercise2[actualCircleSerie].X - bigCircleRadius - AdmittedError)) ||
+                        (actualWristPointRight.X > (pointsBaseArmExercise2[actualCircleSerie].X + bigCircleRadius + AdmittedError)))
+                    {
+                        actualMov = CircleExercise.WRONG;
+                    }
+                }
+                else
+                {
+                    if (actualCircleSerie == 3)
+                    {
+                        nextCircleSerie = 3;
+                    }
+                    else
+                    {
+                        nextCircleSerie = actualCircleSerie + 1;
+                    }
+
+                    if ((actualWristPointLeft.Y < (pointsBaseArmExercise[actualCircleSerie].Y + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPointLeft.X < (pointsBaseArmExercise[actualCircleSerie].X - bigCircleRadius - AdmittedError)) ||
+                        (actualWristPointLeft.X > (pointsBaseArmExercise[actualCircleSerie].X + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPointRight.Y < (pointsBaseArmExercise2[actualCircleSerie].Y + bigCircleRadius + AdmittedError)) ||
+                        (actualWristPointRight.X < (pointsBaseArmExercise2[actualCircleSerie].X - bigCircleRadius - AdmittedError)) ||
+                        (actualWristPointRight.X > (pointsBaseArmExercise2[actualCircleSerie].X + bigCircleRadius + AdmittedError))
+                        )
+                    {
+                        actualMov = CircleExercise.WRONG;
+                    }
+                }
+
+            }
+
+            return actualMov;
+        }
+       
     }
 }
