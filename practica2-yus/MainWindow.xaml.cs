@@ -838,7 +838,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 case ArmRorL.RIGHT:
                     handX = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position).X;
                     handY = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position).Y;
-                    Canvas.SetLeft(mancuerna,handX+140);
+                    Canvas.SetLeft(mancuerna,handX+145);
                     Canvas.SetTop(mancuerna, handY+yplus);  
                 break;
                 case ArmRorL.BOTH:
@@ -846,7 +846,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     handY = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position).Y;
                     hand2X = SkeletonPointToScreen(received.Joints[JointType.HandLeft].Position).X;
                     hand2Y = SkeletonPointToScreen(received.Joints[JointType.HandLeft].Position).Y;
-                    Canvas.SetLeft(mancuerna,handX+140);
+                    Canvas.SetLeft(mancuerna,handX+145);
                     Canvas.SetTop(mancuerna, handY+yplus); 
                     Canvas.SetLeft(mancuerna2,hand2X+155);
                     Canvas.SetTop(mancuerna2, hand2Y+yplus);                    
