@@ -126,6 +126,11 @@
     <Resource Include="Images\poseArriba.png" />
     <Resource Include="Images\poseEstandar.png" />
     <Resource Include="Images\mancuerna.png" />
+    <Resource Include="Images\mano.png" />
+    <Resource Include="Images\bicepsambos.png" />
+    <Resource Include="Images\bicepsarriba.png" />
+    <Resource Include="Images\bicepsarribaambos.png" />
+    <Resource Include="Images\bicepsestandar.png" />
     <Content Include="Music\audio.wav" />
     <Content Include="Music\background.mp3" />
   </ItemGroup>

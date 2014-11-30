@@ -20,7 +20,6 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
     /// </summary>
     public partial class MainWindow : Window
     {
-
         /// <summary>
         /// Bitmap that will hold color information
         /// </summary>
@@ -101,42 +100,52 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// </summary> 
         public enum StateMov
         {
-            INITIAL, LETMOVE, MEDALTIME, DONEMOV, FINISHED
+            WELLCOME,INITIAL, LETMOVE, MEDALTIME, DONEMOV, FINISHED
         };
 
+        //usado para indicar brazo/s
         public enum ArmRorL
         {
             RIGHT,LEFT, BOTH, NONE
         };
 
+        //brazo/s que realiza ejercicios
         private ArmRorL armExercise = ArmRorL.RIGHT;
+
+        //brazo/s de reposo
         private ArmRorL armRepose = ArmRorL.LEFT;
 
+        //las 4 partes del cuerpo que requerimos
         public enum PartBody
         {
             ARMREPOSE, ARMEXERCISE, BODY, FOOTS 
         }
 
+        //estado OK de las 4 partes
         private bool armReposeOK = false;
         private bool armExerciseOK = false;
         private bool bodyOK = false;
         private bool feetOK = false;
 
+        //Puntos que serviran de traza
         Point[] pointsBaseArmExercise = new Point[4];
+        //Puntos que serviran de traza en el caso de ambos brazos
         Point[] pointsBaseArmExercise2 = new Point[4];
 
+        //estado en el que pueden estar los puntos de traza
         public enum StateTracePoints
         {
             INITIAL, ONEPASSED, COMPLETE
         };
 
 
+        //array de estado de los 4 puntos de traza
         StateTracePoints[] pointsBaseArmExerciseState = { StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL 
                                                         };
-
+        //array de estado de los 4 puntos de traza2
         StateTracePoints[] pointsBaseArmExerciseState2 = { StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL, 
                                                           StateTracePoints.INITIAL, 
@@ -146,53 +155,81 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <summary>
         /// StateMov used for know actual state mov
         /// </summary> 
-        private StateMov stateMov = StateMov.INITIAL;
+        private StateMov stateMov = StateMov.WELLCOME;
 
+        //radio de círculo grande
         private double bigCircleRadius = 8;
 
+        //radio de círculo pequeño
         private double littleCircleRadius = 6;
 
+        //conteo de puntuacion
         private int puntuation = 0;
 
+        //puntuacion final
         private int totalPuntuation = 0;
 
+        //numero de series a realizar
         private int totalSeries = 2;
 
+        //numero de repeticiones
         private int totalRepeats = 3;
 
+        //tipo de error que puede introducir el usuario
+        public enum ErrorType
+        {
+            TOLERABLE, NORMAL, STRICT
+        }
+
+        //variable de tipo de error
+        ErrorType errorType = ErrorType.NORMAL;        
+
+        //circulo actual de la serie
         private int actualCircleSerie = 0;
 
+        //repeticion actual
         private int actualRepeat = 0;
 
+        //serie actual
         private int actualSerie = 0;
 
+        //tiempo inicial y final para muestreo de las medallas
         TimeSpan medalTimeStart, medalTimeStop;
 
+        //tiempo que va a durar el muestro de medallas
         double medalTime = 3000;
 
+        //puntuacion que se va a añadir a cada movimiento correcto
         private const int puntuationPositive = 10;
 
+        //sentido de direccion en la que puede realizarse los ejercicios
         public enum DirectionMov
         {
             UP,DOWN
         };
 
+        //direccion actual
         DirectionMov dirMov = DirectionMov.UP;
 
+        //total de ejercicios
         private int totalExercises = 3;
 
+        //ejercicio actual
         private int actualExercise = 0;
 
+        //estado en el que puede estar el circulo
         public enum CircleExercise
         {
             INPROCESS, WELLDONE, WRONG
         };
 
+        //tipos de medallas
         public enum MedalType
         {
             GOLD, SILVER, BRONZE, NONE
         };
 
+        //inner class para la puntuacion por ejercicios
         private class ScoreByExercise
         {
             public MedalType medal;
@@ -228,9 +265,68 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        //instancias para cada almacenar score de cada ejercicio
         ScoreByExercise exercise1Score = new ScoreByExercise();
         ScoreByExercise exercise2Score = new ScoreByExercise();
         ScoreByExercise exercise3Score = new ScoreByExercise();
+
+        //los dos tipos de ejercicios que tiene el programa
+        public enum ExerciseType
+        {
+            BICEPS, FOREARMS
+        };
+
+        //ejercicio axtual
+        ExerciseType exerciseType = ExerciseType.FOREARMS;
+
+        //estructura de rectangulo
+        public struct Rectangle
+        {
+            public double x;
+            public double y;
+            public double width;
+            public double height;
+
+            public Rectangle(double a, double b, double w, double h){
+                x = a;
+                y = b;
+                width = w;
+                height = h;
+            }
+        }
+
+        //rectangulos empleados para dibujar el menu inicial
+        Rectangle rectInit, 
+                  rectReset, 
+                  rectForearms, 
+                  rectBiceps, 
+                  rectPlusRepeats, 
+                  rectMinusRepeats, 
+                  rectPlusSeries, 
+                  rectMinusSeries,
+                  rectMinusError,
+                  rectPlusError;
+
+        //coordenadas de eje de la mano
+        Point handAxisCoordenates = new Point(0, 0);
+
+        //cordenadas actuales de la mano
+        Point handCoordenates = new Point(0, 0);
+
+        //indica si la mano ha sido inicializada
+        bool handInitialized = false;
+
+        //longitud del brazo
+        double armLong = 0;
+
+        //ancho de la pantalla
+        double widthScreen = 593;
+
+        //altitud de la pantalla
+        double heightScreen = 480;
+
+        //tiempo del ultimo cambio realizado con la mano en el menu
+        TimeSpan lastHandChange;
 
         /// <summary>
         /// Active Kinect sensor
@@ -436,9 +532,15 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     {
                         RenderClippedEdges(skel, dc);                        
 
-                        if (skel.TrackingState == SkeletonTrackingState.Tracked)
-                        {
-                            this.DrawBonesAndJoints(skel, dc);
+                        if (skel.TrackingState == SkeletonTrackingState.Tracked){
+                        
+                            this.ProgramMechanical(skel);
+
+                            if (stateMov == StateMov.INITIAL)
+                            {
+                                this.DrawBonesAndJoints(skel, dc);
+                            }
+                        
                         }
                         else if (skel.TrackingState == SkeletonTrackingState.PositionOnly)
                         {
@@ -459,6 +561,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        /// <summary>
+        ///  Dibuja la interfaz gráfica de usuario
+        /// </summary>
+        /// <param name="dc"></param>
         private void DrawGUI(DrawingContext dc)
         {
             Brush textColor = Brushes.White;
@@ -473,6 +579,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             switch (stateMov)
             {
+                case StateMov.WELLCOME:
+                    text = new FormattedText("¡Bienvenido al programa! Mueve la mano.", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), textSize, textColor);
+                    break;
                 case StateMov.INITIAL:
                     text = new FormattedText("Colócate en la posición inicial del ejercicio.", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), textSize, textColor);                                        
                     break;
@@ -519,7 +628,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             pText.X = RenderWidth/2 - text.Width / 2;
             dc.DrawText(text, pText);
 
-            if (stateMov != StateMov.INITIAL && stateMov != StateMov.FINISHED)
+            if (stateMov != StateMov.INITIAL && stateMov != StateMov.FINISHED && stateMov != StateMov.WELLCOME)
             {
                 scoreText = new FormattedText("Puntuación: " + puntuation, CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 25, textColor);
                 psText = new Point((RenderWidth / 2) - scoreText.Width / 2, 100);
@@ -559,7 +668,101 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             Point ieText = new Point(10, 65);
 
-            if (stateMov != StateMov.FINISHED)
+
+            FormattedText welcomeText1 = new FormattedText("Configuración",CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeText2 = new FormattedText("Antebrazos                          Bíceps",CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeText3 = new FormattedText("Series",CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);            
+            FormattedText welcomeText4 = new FormattedText("Repeticiones",CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeText5 = new FormattedText("Error tolerance", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeTextArrowS = new FormattedText("<                    " + totalSeries + "                    >", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeTextArrowR = new FormattedText("<                    " + totalRepeats + "                    >", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeTextArrowE = new FormattedText("<                                          >", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeTextError = new FormattedText(errorType.ToString(), CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeTextReset = new FormattedText("Reset", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            FormattedText welcomeTextInit = new FormattedText("Inicio", CultureInfo.CurrentCulture, FlowDirection, new Typeface("Verdana"), 16, textColor);
+            
+            Point wtText1 = new Point(RenderWidth / 2 - welcomeText1.Width/2, 65);
+            Point wtText2 = new Point(RenderWidth / 2 - welcomeText2.Width / 2, 120);            
+            Point wtText3 = new Point(RenderWidth / 2 - welcomeText3.Width / 2, 180);
+            Point wtTextA1 = new Point(RenderWidth / 2 - welcomeTextArrowS.Width / 2, 210);            
+            Point wtText4 = new Point(RenderWidth / 2 - welcomeText4.Width / 2, 270);
+            Point wtTextA2 = new Point(RenderWidth / 2 - welcomeTextArrowR.Width / 2, 300);
+            Point wtText5 = new Point(RenderWidth / 2 - welcomeText5.Width / 2, 360);
+            Point wtTextA3 = new Point(RenderWidth / 2 - welcomeTextArrowE.Width / 2, 390);
+            Point wtTextError = new Point(RenderWidth / 2 - welcomeTextError.Width / 2, 390);
+            Point wtTextReset = new Point( 20, RenderHeight-40);
+            Point wtTextInit = new Point(RenderWidth - welcomeTextInit.Width - 20, RenderHeight - 40);
+
+            rectReset = new Rectangle(20 - 10, RenderHeight - 50, welcomeTextReset.Width + 20, welcomeTextReset.Height + 20);
+            rectInit = new Rectangle(RenderWidth - welcomeTextInit.Width - 30, RenderHeight - 50, welcomeTextInit.Width + 20, welcomeTextInit.Height + 20);
+            rectBiceps = new Rectangle(403, 110, 72, 40);
+            rectForearms = new Rectangle(165, 110, 112, 40);
+            rectMinusSeries = new Rectangle(175, 200, 40, 40);
+            rectPlusSeries = new Rectangle(425, 200, 40, 40);
+            rectMinusRepeats = new Rectangle(175, 290, 40, 40);
+            rectPlusRepeats = new Rectangle(425, 290, 40, 40);
+            rectMinusError = new Rectangle(175, 380, 40, 40);
+            rectPlusError = new Rectangle(425, 380, 40, 40);
+            
+            if (stateMov == StateMov.WELLCOME)
+            {
+                //rectangle Main
+                dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect(RenderWidth / 2 - welcomeTextArrowS.Width / 2 - 80, 60, welcomeTextArrowS.Width + 160, 380));
+
+                if (exerciseType == ExerciseType.FOREARMS)
+                {
+                    //Antebrazos option
+                    dc.DrawRectangle(Brushes.MediumBlue, new Pen(Brushes.White, 2), new Rect(rectForearms.x, rectForearms.y, rectForearms.width, rectForearms.height));
+                    //Biceps
+                    dc.DrawRectangle(Brushes.MediumSlateBlue, new Pen(Brushes.White, 2), new Rect(rectBiceps.x, rectBiceps.y, rectBiceps.width, rectBiceps.height));
+                }
+                else
+                {
+                    //Antebrazos option
+                    dc.DrawRectangle(Brushes.MediumSlateBlue, new Pen(Brushes.White, 2), new Rect(rectForearms.x, rectForearms.y, rectForearms.width, rectForearms.height));
+                    //Biceps
+                    dc.DrawRectangle(Brushes.MediumBlue, new Pen(Brushes.White, 2), new Rect(rectBiceps.x, rectBiceps.y, rectBiceps.width, rectBiceps.height));
+                }
+                
+                //<
+                dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect(rectMinusSeries.x, rectMinusSeries.y, rectMinusSeries.width, rectMinusSeries.height));
+                //text
+                dc.DrawRectangle(Brushes.MediumSlateBlue, new Pen(Brushes.White, 2), new Rect(215, 200, 210, 40));
+                //>
+                dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect(rectPlusSeries.x, rectPlusSeries.y, rectPlusSeries.width, rectPlusSeries.height));
+                //<
+                dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect(rectMinusRepeats.x, rectMinusRepeats.y, rectMinusRepeats.width, rectMinusRepeats.height));
+                //text
+                dc.DrawRectangle(Brushes.MediumSlateBlue, new Pen(Brushes.White, 2), new Rect(215, 290, 210, 40));
+                //>
+                dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect(rectPlusRepeats.x, rectPlusRepeats.y, rectPlusRepeats.width, rectPlusRepeats.height));
+                //<
+                dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect(rectMinusError.x, rectMinusError.y, rectMinusError.width, rectMinusError.height));
+                //text
+                dc.DrawRectangle(Brushes.MediumSlateBlue, new Pen(Brushes.White, 2), new Rect(215, 380, 210, 40));
+                //>
+                dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect(rectPlusError.x, rectPlusError.y, rectPlusError.width, rectPlusError.height));                
+
+                //rectangle Reset
+                dc.DrawRectangle(Brushes.Red, new Pen(Brushes.White, 2), new Rect(rectReset.x,rectReset.y,rectReset.width,rectReset.height));
+                
+                //rectangle Init
+                dc.DrawRectangle(Brushes.Green, new Pen(Brushes.White, 2), new Rect(rectInit.x, rectInit.y, rectInit.width, rectInit.height));
+
+                dc.DrawText(welcomeText1, wtText1);
+                dc.DrawText(welcomeText2, wtText2);
+                dc.DrawText(welcomeText3, wtText3);
+                dc.DrawText(welcomeTextArrowS, wtTextA1);
+                dc.DrawText(welcomeText4, wtText4);
+                dc.DrawText(welcomeTextArrowR, wtTextA2);
+                dc.DrawText(welcomeText5, wtText5);
+                dc.DrawText(welcomeTextArrowE, wtTextA3);
+                dc.DrawText(welcomeTextError, wtTextError);
+                dc.DrawText(welcomeTextReset, wtTextReset);
+                dc.DrawText(welcomeTextInit, wtTextInit);
+
+            }
+            else if (stateMov != StateMov.FINISHED)
             {
                 dc.DrawRectangle(Brushes.SlateBlue, new Pen(Brushes.White, 2), new Rect((RenderWidth - scoreByExerciseText.Width - 20), RenderHeight - scoreByExerciseText.Height - 20, scoreByExerciseText.Width + 20, scoreByExerciseText.Height + 20));
                 dc.DrawText(scoreByExerciseText, sbeText);
@@ -571,17 +774,17 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 int heightFinish = 70;
                 MedalType finalMedal = MedalType.NONE;
 
-                if ((totalPuntuation / (totalSeries * totalExercises)) > 180)
+                if (((totalPuntuation-(20*totalSeries * totalRepeats * totalExercises)) / (totalRepeats*totalSeries * totalExercises)) > 50)
                 {
                     finalMedal = MedalType.GOLD;
                     Medal.Source = new BitmapImage(new Uri(@"Images/gold.png", UriKind.RelativeOrAbsolute));
                 }
-                else if ((totalPuntuation / (totalSeries * totalExercises)) > 150)
+                else if ((totalPuntuation - (20 * totalSeries * totalRepeats * totalExercises) / (totalRepeats * totalSeries * totalExercises)) > 40)
                 {
                     finalMedal = MedalType.SILVER;
                     Medal.Source = new BitmapImage(new Uri(@"Images/silver.png", UriKind.RelativeOrAbsolute));
                 }
-                else if ((totalPuntuation / (totalSeries * totalExercises)) > 100)
+                else if ((totalPuntuation - (20 * totalSeries * totalRepeats * totalExercises) / (totalRepeats * totalSeries * totalExercises)) > 30)
                 {
                     finalMedal = MedalType.BRONZE;
                     Medal.Source = new BitmapImage(new Uri(@"Images/bronze.png", UriKind.RelativeOrAbsolute));
@@ -615,30 +818,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
-        private double CalculateHeightUser(Skeleton received){
-            double height = 0;
-
-            SkeletonPoint Head = received.Joints[JointType.Head].Position;
-            SkeletonPoint Ankle = received.Joints[JointType.AnkleRight].Position;
-
-            height = (SkeletonPointToScreen(Head).Y - SkeletonPointToScreen(Ankle).Y);
-
-            return Math.Abs(height);
-
-        }
-
-        private double CalculatePosXUser(Skeleton received)
-        {
-            double posX = 0;
-
-            SkeletonPoint shoulder = received.Joints[JointType.ShoulderLeft].Position;
-
-            posX = SkeletonPointToScreen(shoulder).X;
-
-            return Math.Abs(posX);
-
-        }
-
+        /// <summary>
+        /// Controla la posición de la mancuerna
+        /// </summary>
+        /// <param name="received"></param>
         private void DumbbellPosition(Skeleton received)
         {
             double handX = 0, handY=0, hand2X = 0, hand2Y = 0;
@@ -655,7 +838,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 case ArmRorL.RIGHT:
                     handX = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position).X;
                     handY = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position).Y;
-                    Canvas.SetLeft(mancuerna,handX+150);
+                    Canvas.SetLeft(mancuerna,handX+140);
                     Canvas.SetTop(mancuerna, handY+yplus);  
                 break;
                 case ArmRorL.BOTH:
@@ -663,7 +846,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     handY = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position).Y;
                     hand2X = SkeletonPointToScreen(received.Joints[JointType.HandLeft].Position).X;
                     hand2Y = SkeletonPointToScreen(received.Joints[JointType.HandLeft].Position).Y;
-                    Canvas.SetLeft(mancuerna,handX+150);
+                    Canvas.SetLeft(mancuerna,handX+140);
                     Canvas.SetTop(mancuerna, handY+yplus); 
                     Canvas.SetLeft(mancuerna2,hand2X+155);
                     Canvas.SetTop(mancuerna2, hand2Y+yplus);                    
@@ -671,14 +854,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }                      
         }       
 
+        /// <summary>
+        /// Controla el manejo de las imágenes empleadas en el programa
+        /// </summary>
+        /// <param name="received"></param>
         private void ImagesManagement(Skeleton received)
         {
             DumbbellPosition(received);
-
-            // poseEstandar.Height = CalculateHeightUser(skeleton);            
-            //poseEstandar.Margin = new Thickness(CalculatePosXUser(skeleton), 6, 629, -1);
+          
             poseEstandar.Opacity = 0.50;
-            poseEstandarAmbos.Opacity = 0.50;
+            poseEstandarAmbos.Opacity = 0.50;            
 
             double shoulderLeftX = SkeletonPointToScreen(received.Joints[JointType.ShoulderLeft].Position).X;
             double headY = SkeletonPointToScreen(received.Joints[JointType.Head].Position).Y;
@@ -784,6 +969,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        /// <summary>
+        /// Función esqueleto de la mecánica del programa
+        /// </summary>
+        /// <param name="skeleton"></param>
         private void ProgramMechanical(Skeleton skeleton)
         {
             ImagesManagement(skeleton);            
@@ -792,6 +981,21 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 switch (stateMov)
                 {
+                    case StateMov.WELLCOME:
+                        mano.Visibility = Visibility.Hidden;
+                        
+                        if (exerciseType == ExerciseType.BICEPS)
+                        {
+                            poseEstandar.Source = new BitmapImage(new Uri(@"Images/bicepsestandar.png", UriKind.RelativeOrAbsolute));
+                            poseArriba.Source = new BitmapImage(new Uri(@"Images/bicepsarriba.png", UriKind.RelativeOrAbsolute));
+                            poseEstandarAmbos.Source = new BitmapImage(new Uri(@"Images/bicepsambos.png", UriKind.RelativeOrAbsolute));
+                            poseArribaAmbos.Source = new BitmapImage(new Uri(@"Images/bicepsarribaambos.png", UriKind.RelativeOrAbsolute));
+                        }
+
+                        poseEstandar.Visibility = Visibility.Visible;
+                        stateMov = StateMov.INITIAL;
+                    break;
+
                     case StateMov.INITIAL:
                         stateMov = StateMov.LETMOVE;
                         poseEstandar.Visibility = Visibility.Hidden;
@@ -885,7 +1089,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
                         if (actualExercise != totalExercises)
                         {
-                            nextExercise();
+                            NextExercise();
                             stateMov = StateMov.INITIAL;
                         }
                         else
@@ -897,6 +1101,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }           
         }
 
+        /// <summary>
+        /// Reinicia los valores iniciales de cada ejercicio
+        /// </summary>
         private void RestartExerciseValues()
         {            
             actualCircleSerie = 0;
@@ -908,7 +1115,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 pointsBaseArmExerciseState[i] = StateTracePoints.INITIAL;                      
         }
         
-        private void nextExercise(){
+        /// <summary>
+        /// Cambia al siguiente ejercicio
+        /// </summary>
+        private void NextExercise(){
              puntuation = 0;
 
             if (actualExercise == 1)
@@ -933,9 +1143,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
         /// <param name="skeleton">skeleton to draw</param>
         /// <param name="drawingContext">drawing context to draw to</param>
         private void DrawBonesAndJoints(Skeleton skeleton, DrawingContext drawingContext)
-        {
-            ProgramMechanical(skeleton);   
-      
+        {                     
             // Render Torso
             this.DrawBone(skeleton, drawingContext, JointType.Head, JointType.ShoulderCenter,bodyOK);
             this.DrawBone(skeleton, drawingContext, JointType.ShoulderCenter, JointType.ShoulderLeft, bodyOK);
@@ -1102,6 +1310,16 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             switch (stateMov)
             {
+                case StateMov.WELLCOME:
+                    TakeInitialHandCoordenates(skeleton); //shoulder X/Y
+                    if (handInitialized)
+                    {
+                        if (HandMovement(skeleton))
+                        {
+                            check = true;
+                        }
+                    }
+                    break;
                 case StateMov.INITIAL:
 
                     if (armExercise != ArmRorL.BOTH)
@@ -1183,14 +1401,167 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                     break;
             }
 
-            textBoxLog.Clear();
-            textBoxLog.Text = "ArmRepose: "+armReposeOK+" ArmExercise: "+armExerciseOK+" Body: "+bodyOK+" Feet:"+feetOK;
+            //textBoxLog.Clear();
+            //textBoxLog.Text = "ArmRepose: "+armReposeOK+" ArmExercise: "+armExerciseOK+" Body: "+bodyOK+" Feet:"+feetOK;
+
+            return check;
+        }
+        
+        /// <summary>
+        /// Devuelve si un punto está dentro de un rectángulo
+        /// </summary>
+        /// <param name="point"></param>
+        /// <param name="rect"></param>
+        /// <returns></returns>
+        private bool inBounds(Point point,Rectangle rect) {
+            bool check = false;  
+            int errorFix = 20;
+
+            if (point.X > rect.x - errorFix && point.X < rect.x + rect.width - 1 + errorFix &&
+               point.Y > rect.y - errorFix && point.Y < rect.y + rect.height - 1 + errorFix) 
+            {
+                   check = true;
+            }
 
             return check;
         }
 
+        /// <summary>
+        /// Coje las coordenadas inicales de la mano, longitud de brazo y el eje del que parte (hombro)
+        /// </summary>
+        /// <param name="received"></param>
+        private void TakeInitialHandCoordenates(Skeleton received){
+
+            double ShoulRightPosY, ShoulRightPosX, RightHandPosY;
+
+            if (!handInitialized)
+            {
+                AreArmStraight(received);
+
+                if (armExerciseOK && received.TrackingState == SkeletonTrackingState.Tracked)
+                {                    
+                    ShoulRightPosY = SkeletonPointToScreen(received.Joints[JointType.ShoulderRight].Position).Y;
+                    RightHandPosY = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position).Y;
+                    armLong = Math.Abs(ShoulRightPosY - RightHandPosY);
+                    handInitialized = true;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+            }
         
-    // boolean method that return true if body is completely aligned
+            ShoulRightPosX = SkeletonPointToScreen(received.Joints[JointType.ShoulderRight].Position).X;
+            ShoulRightPosY = SkeletonPointToScreen(received.Joints[JointType.ShoulderRight].Position).Y;
+            
+            handAxisCoordenates.X = ShoulRightPosX;
+            handAxisCoordenates.Y = ShoulRightPosY;
+        }
+
+        /// <summary>
+        /// Controla el movimiento de la mano y sus interacciones con la GUI
+        /// </summary>
+        /// <param name="received"></param>
+        /// <returns></returns>
+        private bool HandMovement(Skeleton received)
+        {
+            bool startExercise = false;
+            Point rightHandPosition;
+
+            rightHandPosition = SkeletonPointToScreen(received.Joints[JointType.HandRight].Position);
+
+            handCoordenates.X = (rightHandPosition.X * (widthScreen/2)) / armLong;
+            handCoordenates.Y = (rightHandPosition.Y * (heightScreen/2)) / armLong;
+
+            Canvas.SetLeft(mano, handCoordenates.X);
+            Canvas.SetTop(mano, handCoordenates.Y);
+
+            Point handaxis = new Point((handCoordenates.X-150), (handCoordenates.Y));
+            
+            if ((new TimeSpan(DateTime.Now.Ticks).TotalSeconds - lastHandChange.TotalSeconds) > 2)
+            {
+                if (inBounds(handaxis, rectInit))
+                {
+                    startExercise = true;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectReset))
+                {
+                    totalSeries = 2;
+                    totalRepeats = 3;
+                    errorType = ErrorType.NORMAL;
+                    exerciseType = ExerciseType.FOREARMS;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectForearms))
+                {
+                    exerciseType = ExerciseType.FOREARMS;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectBiceps))
+                {                    
+                    exerciseType = ExerciseType.BICEPS;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectPlusRepeats))
+                {
+                    totalRepeats++;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectMinusRepeats))
+                {
+                    if (totalRepeats > 1)
+                        totalRepeats--;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectPlusSeries))
+                {
+                    totalSeries++;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectMinusSeries))
+                {
+                    if (totalSeries > 1)
+                        totalSeries--;
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectMinusError))
+                {
+                    if (errorType == ErrorType.STRICT)
+                    {
+                        errorType = ErrorType.NORMAL;
+                    }
+                    else
+                    {
+                        errorType = ErrorType.TOLERABLE;
+                    }
+
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+                else if (inBounds(handaxis, rectPlusError))
+                {
+                    if (errorType == ErrorType.TOLERABLE)
+                    {
+                        errorType = ErrorType.NORMAL;
+                    }
+                    else
+                    {
+                        errorType = ErrorType.STRICT;
+                    }
+
+                    lastHandChange = new TimeSpan(DateTime.Now.Ticks);
+                }
+            }
+
+            textBoxLog.Clear();
+            textBoxLog.Text = "HandPoint:" + rightHandPosition.X + "," + rightHandPosition.Y + " HandX: " + (handCoordenates.X).ToString("0.00") + " HandY: " + (handCoordenates.Y).ToString("0.00") +
+                                " Width: " + widthScreen + " Height:" + heightScreen + " hl " + armLong;
+
+
+            return startExercise;
+        }
+
+        /// <summary>
+        ///  Boolean method that return true if body is completely aligned
+        /// </summary>
+        /// <param name="received"></param>
         private void IsAlignedBody(Skeleton received)
         {
             bodyOK = false;
@@ -1210,19 +1581,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
             //Create method to verify if the center of the body is completely aligned
             //head with shoulder center and with hip center
-            if (Math.Abs(HeadCenterPosX-ShoulCenterPosX)<=0.05 && Math.Abs(ShoulCenterPosX-HipCenterPosX)<=0.05)
+            if (Math.Abs(HeadCenterPosX - ShoulCenterPosX) <= ErrorTypeToDouble() && Math.Abs(ShoulCenterPosX - HipCenterPosX) <= ErrorTypeToDouble())
             {                
                 bodyOK = true;           
             }
 
         }
 
+        /// <summary>
+        /// Calcula si el brazo de reposo está en 90º
+        /// </summary>
+        /// <param name="received"></param>
         private void AreArm90grades(Skeleton received)
         {
             armReposeOK = false;
             double shoulderX, elbowX, elbowY, elbowZ, wristY,wristZ;
-            float distErrorSE = 0.15f;
-            float distError = 0.1f;
+            //float distErrorSE = 0.05f;
+            double distError = ErrorTypeToDouble();
 
             switch (armRepose)
             {
@@ -1244,19 +1619,23 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
                 break;
             }
 
-            if (Math.Abs(shoulderX - elbowX) <= distErrorSE &&
-                Math.Abs(elbowY - wristY) <= distError &&
-                Math.Abs(elbowZ - wristZ) <= distError)
+            if (Math.Abs(shoulderX - elbowX) <= distError &&
+                Math.Abs(elbowY - wristY) <= distError*2 &&
+                Math.Abs(elbowZ - wristZ) <= distError*2)
             {
                 armReposeOK = true;
             } 
         }
 
+        /// <summary>
+        /// Calcula si el brazo de ejercicio está recto
+        /// </summary>
+        /// <param name="received"></param>
         private void AreArmStraight(Skeleton received)
         {           
             armExerciseOK = false;
             //caldulate admited error 5% that correspond to 9 degrees for each side
-            double radian = (9 * Math.PI) / 180;
+            double radian = ((180 * ErrorTypeToDouble()) * Math.PI) / 180;
             double wristX,wristY, projectedWristX, distError,hipY;
 
             switch (armExercise)
@@ -1303,7 +1682,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
       
-        //method for the second position feet separate between (gradesAnkleHipCenter*2) degrees to be accepted
+        /// <summary>
+        /// method for the second position feet separate between (gradesAnkleHipCenter*2) degrees to be accepted
+        /// </summary>
+        /// <param name="received"></param>
         private void AreFeetSeparate(Skeleton received)
         {
             double gradesAnkleHipCenter = 20;
@@ -1327,7 +1709,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             //assume that the distance Y between HipCenter to each foot is the same
             double distHiptoAnkleL = HipCenterPosY - AnkLPosY;
             //caldulate admited error 5% that correspond to 9 degrees for each side
-            double radian1 = (4.5 * Math.PI) / 180;
+            double radian1 = ((180*ErrorTypeToDouble())/2 * Math.PI) / 180;
             double DistErrorL = distHiptoAnkleL * Math.Tan(radian1);
             //determine of projected point from HIP CENTER to LEFT ANKLE and RIGHT and then assume error
             double ProjectedPointFootLX = HipCenterPosX;
@@ -1344,8 +1726,12 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             {
                 feetOK = true;
             }                      
-        }//close method AreFeetseparate
+        }
 
+        /// <summary>
+        /// Calcula los 4 puntos de traza para la realización del ejercicio
+        /// </summary>
+        /// <param name="received"></param>
         private void CalculateTracePoints(Skeleton received)
         {
             Joint elbow, wrist,shoulder;
@@ -1389,6 +1775,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        /// <summary>
+        /// Dibuja los puntos de traza
+        /// </summary>
+        /// <param name="drawingContext"></param>
         private void DrawTracePoints(DrawingContext drawingContext)
         {
             Brush circleBrush = Brushes.Gray;
@@ -1414,6 +1804,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
 
         }
 
+        /// <summary>
+        /// Dibuja los puntos de traza 2 en el caso de movimiento simultaneo
+        /// </summary>
+        /// <param name="drawingContext"></param>
         private void DrawTracePoints2(DrawingContext drawingContext)
         {
             Brush circleBrush = Brushes.Gray;
@@ -1439,6 +1833,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        /// <summary>
+        /// Calcula la interaccion del usuario con los circulos de traza de los ejercicios
+        /// </summary>
+        /// <param name="received"></param>
+        /// <returns></returns>
         private CircleExercise CheckMov(Skeleton received)
         {
             CircleExercise actualMov = CircleExercise.INPROCESS;
@@ -1446,7 +1845,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint hand;
             Point actualHandPoint;
 
-            double AdmittedError = 4;
+            double AdmittedError = ErrorTypeToDouble()*100;
 
             if (armExercise == ArmRorL.LEFT)
             {
@@ -1513,6 +1912,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             return actualMov;
         }
 
+        /// <summary>
+        /// Actualiza el estado del actual circulo de la traza
+        /// </summary>
         private void NextPointState()
         {
             switch (pointsBaseArmExerciseState[actualCircleSerie])
@@ -1544,6 +1946,9 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        /// <summary>
+        /// Actualiza la informacion de los siguientes circulos 
+        /// </summary>
         private void NextCircleMov()
         {
             switch (actualCircleSerie)
@@ -1606,6 +2011,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        /// <summary>
+        /// Cambia la puntuacion dependiendo del estado del circulo del ejercicio
+        /// </summary>
+        /// <param name="ce"></param>
         private void ChangePuntuation(CircleExercise ce)
         {
             switch (ce)
@@ -1624,19 +2033,24 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
         }
 
+        /// <summary>
+        /// Devuelve la medalla ganada en el ejercicio
+        /// </summary>
+        /// <returns></returns>
         private MedalType CheckMedalWon()
         {
             MedalType medalWon = MedalType.NONE;
 
-            if (puntuation/totalSeries > 180)
+            //Una serie son puntuationPositive (10)*6 + 20       
+            if (((puntuation - (20*totalSeries)) / (totalSeries*totalRepeats)) > 50)
             {
                 medalWon = MedalType.GOLD;
             }
-            else if (puntuation / totalSeries > 150)
+            else if (((puntuation - (20 * totalSeries)) / (totalSeries * totalRepeats)) > 40)
             {
                 medalWon = MedalType.SILVER;
             }
-            else if (puntuation / totalSeries > 100)
+            else if (((puntuation - (20 * totalSeries)) / (totalSeries * totalRepeats)) > 30)
             {
                 medalWon = MedalType.BRONZE;
             }
@@ -1646,6 +2060,10 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             return medalWon;
         }
 
+        /// <summary>
+        /// Guarda la información del ejercicio realizado
+        /// </summary>
+        /// <param name="medalWon"></param>
         private void ActualizeExerciseScore(MedalType medalWon)
         {
             switch (actualExercise)
@@ -1679,6 +2097,11 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             
         }
 
+        /// <summary>
+        ///  Calcula la interaccion del usuario con los circulos de traza de los ejercicios simultaneos
+        /// </summary>
+        /// <param name="received"></param>
+        /// <returns></returns>
         private CircleExercise CheckMovSimultaneous(Skeleton received)
         {
             CircleExercise actualMov = CircleExercise.INPROCESS;
@@ -1686,7 +2109,7 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             Joint handLeft, handRight;
             Point actualHandPointLeft, actualHandPointRight;
 
-            double AdmittedError = 4;
+            double AdmittedError = ErrorTypeToDouble()*100;
            
             handLeft = received.Joints[JointType.HandLeft];
             handRight = received.Joints[JointType.HandRight];            
@@ -1754,8 +2177,31 @@ namespace Microsoft.Samples.Kinect.SkeletonBasics
             }
 
             return actualMov;
+        }       
+
+        /// <summary>
+        /// Devuelve el valor en double del tipo de error
+        /// </summary>
+        /// <returns></returns>
+        private double ErrorTypeToDouble()
+        {
+            double errorD = 0;
+
+            switch (errorType)
+            {
+                case ErrorType.TOLERABLE:
+                    errorD = 0.1;
+                break;
+                case ErrorType.NORMAL:
+                    errorD = 0.05;
+                break;
+                case ErrorType.STRICT:
+                    errorD = 0.03;
+                break;
+
+            }
+
+            return errorD;
         }
-     
-       
     }
 }
