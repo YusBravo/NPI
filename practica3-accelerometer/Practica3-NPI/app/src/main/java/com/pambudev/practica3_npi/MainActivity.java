@@ -115,66 +115,6 @@ public class MainActivity extends ActionBarActivity{
         super.onResume();
     }
 
-/*
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {}
-
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-        synchronized (this) {
-            long currentTime = event.timestamp;
-            int limit = 1500;
-            float minMov = 1E-4f;
-            float mov,movX,movY,movZ;
-            long timeDiff;
-
-            accelX = event.values[0];
-            accelY = event.values[1];
-            accelZ = event.values[2];
-
-            ((TextView) findViewById(R.id.textAccX)).setText("Acelerómetro X: " + accelX);
-            ((TextView) findViewById(R.id.textAccY)).setText("Acelerómetro Y: " + accelY);
-            ((TextView) findViewById(R.id.textAccZ)).setText("Acelerómetro Z: " + accelZ);
-
-            if (prevX == 0 && prevY == 0 && prevZ == 0) {
-                lastUpdate = currentTime;
-                lastMov = currentTime;
-                prevX = accelX;
-                prevY = accelY;
-                prevZ = accelZ;
-            }
-
-            timeDiff = currentTime - lastUpdate;
-
-            if (timeDiff > 0) {
-                mov = Math.abs((accelX + accelY + accelZ) - (prevX - prevY - prevZ)) / timeDiff;
-                movX = (accelX - prevX)/timeDiff;
-                movY = (accelY - prevY)/timeDiff;
-                movZ = (accelZ - prevZ)/timeDiff;
-                limit = 1500;
-                minMov = 1E-6f;
-
-                if (mov > minMov) {
-                    if (currentTime - lastMov >= limit) {
-                        ((TextView) findViewById(R.id.movAccX)).setText("Mov in X: " + movX);
-                        ((TextView) findViewById(R.id.movAccY)).setText("Mov in Y: " + movY);
-                        ((TextView) findViewById(R.id.movAccZ)).setText("Mov in Z: " + movZ);
-                        //Toast.makeText(getApplicationContext(), "Hay movimiento de " + mov, Toast.LENGTH_SHORT).show();
-                    }
-                    lastMov = currentTime;
-                }
-                prevX = accelX;
-                prevY = accelY;
-                prevZ = accelZ;
-                lastUpdate = currentTime;
-            }
-        }
-    }
-
-*/
-
-
         @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
