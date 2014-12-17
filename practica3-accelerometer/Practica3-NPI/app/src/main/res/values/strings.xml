@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Practica3-NPI</string>
+    <string name="subtitle">Valores del acelerómetro</string>
+    <string name="accel_x_text">Acelerometer X value: </string>
+    <string name="accel_y_text">Acelerometer Y value: </string>
+    <string name="accel_z_text">Acelerometer Z value: </string>
+    <string name="mov_x_text">Mov in X: </string>
+    <string name="mov_y_text">Mov in Y: </string>
+    <string name="mov_z_text">Mov in Z: </string>
+    <string name="accel_x_value">0</string>
+    <string name="accel_y_value">0</string>
+    <string name="accel_z_value">0</string>
+    <string name="action_settings">Settings</string>
+</resources>
