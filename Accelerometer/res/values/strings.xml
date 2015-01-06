@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Acelerómetro</string>
+    <string name="action_settings">Settings</string>
+    <string name="Move">Shake to get a toast and to switch color</string>
+    <string name="menu_settings">Settings</string>
+    <string name="Ejex">Eje X: </string>
+    <string name="Ejey">Eje Y: </string>
+    <string name="Ejez">Eje Z: </string>
+    <string name="MovHorizontal">Mov. Hor: </string>
+    <string name="MovVertical">Mov. Ver: </string>
+    <string name="MovProfundidad">Mov. Pro: </string>
+    <string name="titulo">Valores acelerómetro</string>
+    <string name="sensorNameLabel">Sensor: </string>
+    <string name="sensorVersionLabel">Version: </string>
+    <string name="sensorPowerLabel">Potencia: </string>    
+    <string name="contador">0</string>
+    <string name="descriptionPambil">ImageView</string>
+    <string name="feedbackString">¡Bienvenido! Elije una opción</string>
+
+</resources>

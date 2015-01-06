@@ -1,0 +1,329 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.pambudev.accelerometer.MainActivity" >
+    
+    <!-- Menu -->
+
+    <Button
+        android:id="@+id/iconMenu"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/menu" />
+    
+    <TextView
+        android:id="@+id/txtMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iconMenu"
+        android:layout_alignTop="@+id/iconMenu"
+        android:layout_toRightOf="@+id/iconMenu"
+        android:background="#FC4349"
+        android:gravity="center|right"
+        android:paddingRight="10dp"
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:textColor="#ffffff" />
+
+    <!-- End Menu -->
+
+    <!-- Sensor X -->
+
+    <TextView
+        android:id="@+id/labelX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iconMenu"
+        android:layout_marginBottom="5dp"
+        android:paddingTop="8dp"
+        android:textSize="12sp"
+        android:textColor="#A0A0A0"
+        android:text="@string/Ejex" />
+
+    <TextView
+        android:id="@+id/valueX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/labelX"
+        android:layout_marginLeft="5dp"
+        android:paddingTop="8dp"
+        android:layout_toRightOf="@id/labelX" 
+        android:textColor="#A0A0A0"
+        android:textSize="12sp" />
+    
+    <TextView
+        android:id="@+id/labelMovX"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iconMenu"
+        android:layout_toRightOf="@+id/izquierda"
+        android:layout_marginBottom="5dp"
+        android:paddingTop="8dp"
+        android:textSize="12sp"
+        android:textColor="#A0A0A0"
+        android:text="@string/MovHorizontal" />
+    
+     <TextView
+         android:id="@+id/valueMovX"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignBaseline="@+id/labelMovX"
+         android:layout_alignBottom="@+id/labelMovX"
+         android:layout_toRightOf="@+id/contador"
+         android:textColor="#A0A0A0"
+         android:textSize="12sp" />
+
+	<!-- End SensorX -->
+        
+    <!-- Sensor Y -->
+
+    <TextView
+        android:id="@+id/labelY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelX"
+        android:layout_marginBottom="5dp"
+        android:textSize="12sp"
+        android:textColor="#A0A0A0"
+        android:text="@string/Ejey" />
+
+    <TextView
+        android:id="@+id/valueY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/labelY"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/labelY" 
+        android:textColor="#A0A0A0"
+        android:textSize="12sp" />
+    
+    <TextView
+        android:id="@+id/labelMovY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelX"
+        android:layout_toRightOf="@+id/izquierda"
+        android:layout_marginBottom="5dp"
+        android:textSize="12sp"
+        android:textColor="#A0A0A0"
+        android:text="@string/MovVertical" />
+    
+     <TextView
+        android:id="@+id/valueMovY"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/labelMovY"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/labelMovY" 
+        android:textColor="#A0A0A0"
+        android:textSize="12sp" />
+     
+    <!-- End Sensor Y -->
+
+  	<!-- Sensor Z -->
+
+    <TextView
+        android:id="@+id/labelZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/labelY"
+        android:layout_marginBottom="5dp"
+        android:textSize="12sp"
+        android:textColor="#A0A0A0"
+        android:text="@string/Ejez" />
+
+    <TextView
+        android:id="@+id/valueZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/labelZ"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/labelZ" 
+        android:textColor="#A0A0A0"
+        android:textSize="12sp" />
+    
+     <TextView
+         android:id="@+id/labelMovZ"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignLeft="@+id/labelMovY"
+         android:layout_below="@+id/labelMovY"
+         android:text="@string/MovProfundidad"
+         android:textColor="#A0A0A0"
+         android:textSize="12sp" />
+     
+     <TextView
+        android:id="@+id/valueMovZ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/labelMovZ"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/labelMovZ" 
+        android:textColor="#A0A0A0"
+        android:textSize="12sp" />
+     
+    <!-- End Sensor Z -->
+            
+            
+    <!-- Pambil -->
+    
+    <!-- End Pambil -->
+    
+    <!-- Sensor Power -->
+
+ 	<TextView
+         android:id="@+id/sensorPowerLabel"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/labelZ"
+         android:text="@string/sensorPowerLabel"
+         android:textColor="#A0A0A0"
+         android:textSize="12sp" />
+ 	
+	<TextView
+        android:id="@+id/sensorPowerValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sensorPowerLabel"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/sensorPowerLabel" 
+        android:textColor="#A0A0A0"
+        android:textSize="12sp" />
+	
+    <!-- End Sensor Power -->
+    
+    <!--  Barra separadora 1 -->
+    
+    <TextView
+        android:id="@+id/div1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/sensorPowerLabel"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/div" />
+    
+    <!--  End Barra separadora 1 -->
+    
+    <!--  Contador -->
+
+    <!-- End contador -->
+    
+    <!--  Barra separadora 2 -->
+    
+    <TextView
+        android:id="@+id/div2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/pambil"
+        android:layout_marginBottom="26dp"
+        android:background="@drawable/div" />
+   
+    <!--  End Barra separadora 1 -->
+
+    <!--  Botones -->
+	<Button
+        android:id="@+id/arriba_profundo"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/arriba"
+        android:background="@drawable/arriba_profundo" />
+	 
+    <Button
+        android:id="@+id/arriba"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/izquierda"
+        android:background="@drawable/arriba" />
+
+    <Button
+        android:id="@+id/izquierda"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/stateButton"
+        android:background="@drawable/izquierda" />
+
+    <Button
+        android:id="@+id/stateButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/pause" />
+
+    <Button
+        android:id="@+id/derecha"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/stateButton"
+        android:background="@drawable/derecha" />
+
+	<Button
+        android:id="@+id/abajo"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/derecha"
+        android:background="@drawable/abajo" />
+	
+	<Button
+        android:id="@+id/abajo_profundo"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/abajo"
+        android:background="@drawable/abajo_profundo" />
+
+	<!--  End Botones  -->
+
+	<TextView
+	    android:id="@+id/contador"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignRight="@+id/abajo"
+	    android:layout_below="@+id/sensorPowerLabel"
+	    android:paddingBottom="8dp"
+	    android:paddingTop="30dp"
+	    android:text="@string/contador"
+	    android:textColor="#FC4349"
+	    android:textSize="120sp" />
+
+	<ImageView
+	    android:id="@+id/pambil"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/div1"
+	    android:layout_toRightOf="@+id/iconMenu"
+	    android:contentDescription="@string/descriptionPambil"
+	    android:src="@drawable/pambil_play" />
+
+	<TextView
+	    android:id="@+id/feedbackText"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/arriba"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginBottom="25dp"
+	    android:text="@string/feedbackString" />
+   
+</RelativeLayout>
