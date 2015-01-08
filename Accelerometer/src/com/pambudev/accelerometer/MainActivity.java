@@ -1,5 +1,13 @@
-package com.pambudev.accelerometer;
+/**
+ * Título: Acelerómetro
+ * Licencia Pública General de GNU (GPL) versión 3 
+ * Autores:
+ * - José Francisco Bravo Sánchez
+ * - Pedro Fernández Bosch
+ * Fecha de la última modificación: 06/01/2015
+ */
 
+package com.pambudev.accelerometer;
 
 import android.app.Activity;
 import android.media.Image;
@@ -19,12 +27,16 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
+	/**
+	 * Declaración de variables 
+	 */
 	Accelerometer accelerometer;
-    Float accelX, accelY, accelZ, prevX, prevY, prevZ;
+    Float accelX, accelY, accelZ;
     long lastUpdate, lastMov;
     int sdk = android.os.Build.VERSION.SDK_INT;
     final Handler myHandler = new Handler();
     int deltaTime = 40;
+    boolean accelerometerInitiated;
     private Button stateButton,
     			   arribaButton,
     			   abajoButton,
@@ -59,13 +71,17 @@ public class MainActivity extends Activity {
         t.start();
     }
 
+    /**
+	 * Función principal Acelerómetro
+	 * Valores ejes X, Y, Z
+	 * Valores de aceleración 
+	 */
     final Runnable ejecutarAccion = new Runnable(){
         public void run(){
             synchronized (this) {
                 long currentTime = accelerometer.getAtTime();
                 int limit = 40000000; //0,04 segundos
                 float minMov = 1E-6f;
-                float minMovSide = 1E-9f;
                 float mov, movX, movY, movZ;
                 long timeDiff;
 
@@ -77,26 +93,25 @@ public class MainActivity extends Activity {
                 ((TextView) findViewById(R.id.valueY)).setText(accelY.toString());
                 ((TextView) findViewById(R.id.valueZ)).setText(accelZ.toString());
 
-                if (prevX == 0 && prevY == 0 && prevZ == 0) {
+                if (!accelerometerInitiated) {
                     lastUpdate = currentTime;
                     lastMov = currentTime;
-                    prevX = accelX;
-                    prevY = accelY;
-                    prevZ = accelZ;
+                    accelerometer.actPrevAxisValues();
+                    accelerometerInitiated = true;
                 }
 
                 timeDiff = currentTime - lastUpdate;
-
-               // ((TextView) findViewById(R.id.time)).setText("\nTime: \n" + timeDiff+"\nlast mov:\n"+lastMov+"\nLast update:\n"+lastUpdate+"\nActual:\n"+currentTime+"\nresta:\n"+(currentTime - lastMov));
-
+               
                 if (timeDiff > 0) {
-                 
-                    if (currentTime - lastMov >= limit) {
-                    	 mov = Math.abs((accelX + accelY + accelZ) - (prevX - prevY - prevZ)) / timeDiff;
-                         movX = (accelX - prevX) / timeDiff;
-                         movY = (accelY - prevY) / timeDiff;
-                         movZ = (accelZ - prevZ) / timeDiff;
-                         
+                	
+                    if (currentTime - lastMov >= limit) { //intervalo en el cual realizar las comprobaciones
+                    	
+                    	accelerometer.actAxisMov(timeDiff);
+                    	mov = accelerometer.getTotalMov();
+                    	movX = accelerometer.getMovXValue();
+                    	movY = accelerometer.getMovYValue();
+                    	movZ = accelerometer.getMovZValue();
+                    	 
                     	if (mov > minMov) {
                             ((TextView) findViewById(R.id.valueMovX)).setText(""+movX);
                             ((TextView) findViewById(R.id.valueMovY)).setText(""+movY);
@@ -104,27 +119,27 @@ public class MainActivity extends Activity {
                             
                             switch(tipoMov){
 	                            case DERECHA:
-	                            	if(movX > minMovSide)
+	                            	if(accelerometer.isPositiveMovX())
 	                        			cont++;
 	                            	break;
 	                            case IZQUIERDA:
-	                        		if(movX < -minMovSide)
+	                        		if(accelerometer.isNegativeMovX())
 	                        			cont++;
 	                            	break;
 	                            case ARRIBA:
-	                            	if(movY > minMovSide)
+	                            	if(accelerometer.isPositiveMovY())
 	                        			cont++;
 	                            	break;
 	                            case ABAJO:
-	                            	if(movY < -minMovSide)
-	                        			cont++;
-	                            	break;
-	                            case ARRIBAPROFUNDO:
-	                            	if(movZ < -minMovSide)
+	                            	if(accelerometer.isNegativeMovY())
 	                        			cont++;
 	                            	break;
 	                            case ABAJOPROFUNDO:
-	                            	if(movZ > minMovSide)
+	                            	if(accelerometer.isPositiveMovZ())
+	                        			cont++;
+	                            	break;
+	                            case ARRIBAPROFUNDO:
+	                            	if(accelerometer.isNegativeMovZ())
 	                        			cont++;
 	                            	break;
 	                            default:
@@ -133,8 +148,6 @@ public class MainActivity extends Activity {
                         }
 
                         lastMov = currentTime;
-                    }else{
-
                     }
                     
                     ((TextView) findViewById(R.id.sensorPowerValue)).setText("" + accelerometer.getPower());
@@ -142,16 +155,16 @@ public class MainActivity extends Activity {
                 	TextView contador = (TextView)findViewById(R.id.contador);        	       
         	        contador.setText(String.valueOf(cont));
                     
-                    prevX = accelX;
-                    prevY = accelY;
-                    prevZ = accelZ;
+        	        accelerometer.actPrevAxisValues();
                     lastUpdate = currentTime;
                 }
             }
         }
     };
 
-    
+    /**
+	 * OnCreate Method Override 
+	 */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,7 +179,8 @@ public class MainActivity extends Activity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         accelerometer = new Accelerometer(this);
-        accelX = accelY = accelZ = prevX = prevY = prevZ = 0f;
+        accelX = accelY = accelZ =  0f;
+        accelerometerInitiated = false;
 
         pambil = (ImageView) findViewById(R.id.pambil);
         
@@ -233,7 +247,9 @@ public class MainActivity extends Activity {
 
 	}
 	
-	
+	/**
+	 * Change Pambil image foreach tipoMov
+	 */
 	private void changePambilImage(){
 		switch(tipoMov){
 			case ARRIBA:
@@ -260,6 +276,9 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * Texto de referencia
+	 */
 	private void changeFeedbackText(){
 				
 		switch(tipoMov){
@@ -276,10 +295,10 @@ public class MainActivity extends Activity {
 				((TextView) findViewById(R.id.feedbackText)).setText("Realiza movimientos hacia la derecha");
 				break;
 			case ABAJOPROFUNDO:
-				((TextView) findViewById(R.id.feedbackText)).setText("Realiza movimientos hacia el fondo");
+				((TextView) findViewById(R.id.feedbackText)).setText("Realiza movimientos hacia ti");
 				break;
 			case ARRIBAPROFUNDO:
-				((TextView) findViewById(R.id.feedbackText)).setText("Realiza movimientos hacia ti");
+				((TextView) findViewById(R.id.feedbackText)).setText("Realiza movimientos hacia el fondo");
 				break;
 			default:
 				pambil.setImageResource(R.drawable.pambil_play);

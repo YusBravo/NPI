@@ -1,3 +1,12 @@
+/**
+ * Título: Acelerómetro
+ * Licencia Pública General de GNU (GPL) versión 3 
+ * Autores:
+ * - José Francisco Bravo Sánchez
+ * - Pedro Fernández Bosch
+ * Fecha de la última modificación: 06/01/2015
+ */
+
 package com.pambudev.accelerometer;
 
 import android.content.Context;
