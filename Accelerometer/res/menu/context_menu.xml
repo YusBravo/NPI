@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+   
+    <item android:id="@+id/ResumeOption"
+	    android:title="@string/contextMenu_volver"></item>
+	<item android:id="@+id/CreditOption"
+	    android:title="@string/contextMenu_creditos"></item>
+	<item android:id="@+id/GamesOption"
+	    android:title="@string/contextMenu_juegos"></item>
+	<item android:id="@+id/SourceCodeOptionYus"
+	    android:title="@string/contextMenu_codigoYus"></item>
+	<item android:id="@+id/SourceCodeOptionPedro"
+	    android:title="@string/contextMenu_codigoPedro"></item>
+	<item android:id="@+id/ExitOption"
+	    android:title="@string/contextMenu_salir"></item>
+
+</menu>

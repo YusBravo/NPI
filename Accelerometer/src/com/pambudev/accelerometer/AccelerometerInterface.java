@@ -21,8 +21,15 @@ public interface AccelerometerInterface {
     
     public float getPower();
     
+    /**
+     * Actualize previous axis values
+     */
     public void actPrevAxisValues();
     
+    /**
+     * Actualize movement values
+     * @param timeDiff time needed to calculate between actual position and previous position
+     */
     public void actAxisMov(long timeDiff);
     
     public boolean isPositiveMovX();

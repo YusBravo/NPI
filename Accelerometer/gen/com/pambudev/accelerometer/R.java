@@ -46,9 +46,15 @@ public final class R {
         public static final int play=0x7f020012;
     }
     public static final class id {
+        public static final int CreditOption=0x7f09001d;
+        public static final int ExitOption=0x7f090021;
+        public static final int GamesOption=0x7f09001e;
+        public static final int ResumeOption=0x7f09001c;
+        public static final int SourceCodeOptionPedro=0x7f090020;
+        public static final int SourceCodeOptionYus=0x7f09001f;
         public static final int abajo=0x7f090014;
         public static final int abajo_profundo=0x7f09001b;
-        public static final int action_settings=0x7f09001c;
+        public static final int action_settings=0x7f090022;
         public static final int arriba=0x7f090017;
         public static final int arriba_profundo=0x7f090018;
         public static final int contador=0x7f090013;
@@ -80,7 +86,8 @@ public final class R {
         public static final int activity_main=0x7f030000;
     }
     public static final class menu {
-        public static final int main=0x7f080000;
+        public static final int context_menu=0x7f080000;
+        public static final int main=0x7f080001;
     }
     public static final class string {
         public static final int Ejex=0x7f060004;
@@ -93,6 +100,12 @@ public final class R {
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int contador=0x7f06000e;
+        public static final int contextMenu_codigoPedro=0x7f060015;
+        public static final int contextMenu_codigoYus=0x7f060014;
+        public static final int contextMenu_creditos=0x7f060012;
+        public static final int contextMenu_juegos=0x7f060013;
+        public static final int contextMenu_salir=0x7f060016;
+        public static final int contextMenu_volver=0x7f060011;
         public static final int descriptionPambil=0x7f06000f;
         public static final int feedbackString=0x7f060010;
         public static final int menu_settings=0x7f060003;

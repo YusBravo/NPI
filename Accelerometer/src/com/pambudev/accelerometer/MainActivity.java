@@ -2,22 +2,25 @@
  * Título: Acelerómetro
  * Licencia Pública General de GNU (GPL) versión 3 
  * Autores:
- * - José Francisco Bravo Sánchez
+ * - José Francisco Bravo Sánchez (Yus Bravo)
  * - Pedro Fernández Bosch
- * Fecha de la última modificación: 06/01/2015
+ * Fecha de la última modificación: 08/01/2015
  */
 
 package com.pambudev.accelerometer;
 
 import android.app.Activity;
-import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Menu;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.widget.Button;
@@ -43,7 +46,8 @@ public class MainActivity extends Activity {
     			   derechaButton,
     			   izquierdaButton,
     			   arribaProfundoButton,
-    			   abajoProfundoButton;
+    			   abajoProfundoButton,
+    			   iconMenuButton;
     private ImageView pambil;
     private int stateApp = 1;
     int cont = 0;
@@ -190,13 +194,13 @@ public class MainActivity extends Activity {
         setDerechaButton();
         setIzquierdaButton();
         setArribaProfundoButton();
-        setAbajoProfundoButton();
+        setAbajoProfundoButton();     
+        setIconMenuButton();    
         
         sensorThread(); //Thread simultaneo para manejo del acelerometro (sensorEventListener)
 
     }
 
-    
     /**
 	 * Sets up the listener for the state button that the user
 	 * must click to change state of the app (running or pause) 
@@ -277,7 +281,7 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
-	 * Texto de referencia
+	 * Change feedback text foreach tipoMov
 	 */
 	private void changeFeedbackText(){
 				
@@ -429,6 +433,15 @@ public class MainActivity extends Activity {
 
 	}
 	
+	 /**
+		 * Sets up the register for context menu for the iconMenu button
+		 */
+	    private void setIconMenuButton(){
+	    	iconMenuButton = (Button) findViewById(R.id.iconMenu);        
+	        registerForContextMenu(iconMenuButton);
+	    }
+	    
+	    
 	/**
 	 * Sets up the listener for the abajo profundo button that the user
 	 * must click to change tipoMov to abajo profundo 
@@ -452,35 +465,77 @@ public class MainActivity extends Activity {
 	    });
 
 	}
-	
-	
 
-/*
+	/**
+	 * Create Context Menu
+	 */
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-	    // Inflate the menu; this adds items to the action bar if it is present.
-	    getMenuInflater().inflate(R.menu.main, menu);
-	    return true;
+	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo)
+	{
+	    super.onCreateContextMenu(menu, v, menuInfo);
+	 
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.context_menu, menu);
+	    
+	    if(stateApp == 1)
+	    	stateButton.callOnClick();
 	}
-*/
+	
     @Override
     protected void onResume() {
         super.onResume();
     }
 
-    /*
-        @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    /**
+     * item selected for Context Menu
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+    	boolean res = false;   	
+    	Toast toast;
+    	
+        switch (item.getItemId()) {
+        	case R.id.ResumeOption:
+        		res = true;
+        		break;
+            case R.id.CreditOption:
+            	toast = Toast.makeText(getApplicationContext(),
+            			"Desarrollado por:\n\n" +
+            			"- Yus Bravo (Pambú! Developers.)\n" +
+            			"- Pedro Bosch (www.pedrobosch.es)\n" +
+            			"\n" +
+            			"Los derechos de la aplicación pertenecen a Pambú! Dev.", Toast.LENGTH_SHORT);
+            	toast.setDuration(Toast.LENGTH_LONG);
+            	toast.show();
+                res = true;
+                break;
+            case R.id.GamesOption:
+            	
+            	try {
+            	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:Pamb%C3%BA!+Dev.")));
+            	} catch (android.content.ActivityNotFoundException anfe) {
+            	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Pamb%C3%BA!+Dev.")));
+            	}
+            	           	
+                res= true;
+                break;
+            case R.id.SourceCodeOptionYus:
+            	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/YusBravo/NPI/tree/master/Accelerometer")));
+                res= true;
+                break;
+            case R.id.SourceCodeOptionPedro:
+            	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pebosch/npi")));
+                res= true;
+                break;
+            case R.id.ExitOption:
+            	 finish();
+            	break;
+            default:
+                res= super.onContextItemSelected(item);
+                break;
         }
-
-        return super.onOptionsItemSelected(item);
-    }*/
+        
+        return res;		
+    }
+    
 }

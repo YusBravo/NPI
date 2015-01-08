@@ -18,5 +18,12 @@
     <string name="contador">0</string>
     <string name="descriptionPambil">ImageView</string>
     <string name="feedbackString">¡Bienvenido! Elije una opción</string>
+    
+    <string name= "contextMenu_volver">Volver</string>
+    <string name= "contextMenu_creditos">Créditos</string>
+    <string name= "contextMenu_juegos">Juegos de Pambú! Developers.</string>
+    <string name= "contextMenu_codigoYus">Código fuente (Yus Bravo)</string>
+    <string name= "contextMenu_codigoPedro">Código fuente (Pedro Bosch)</string>
+    <string name= "contextMenu_salir">Salir</string>
 
 </resources>
