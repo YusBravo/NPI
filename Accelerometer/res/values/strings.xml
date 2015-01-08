@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Acelerómetro</string>
+    <string name="app_name">Pandacelerometro</string>
     <string name="action_settings">Settings</string>
     <string name="Move">Shake to get a toast and to switch color</string>
     <string name="menu_settings">Settings</string>

@@ -7,7 +7,9 @@
  * Fecha de la última modificación: 08/01/2015
  */
 
-package com.pambudev.accelerometer;
+package com.pambudev.pandacelerometro;
+
+import com.pambudev.accelerometer.R;
 
 import android.app.Activity;
 import android.net.Uri;
@@ -84,7 +86,7 @@ public class MainActivity extends Activity {
         public void run(){
             synchronized (this) {
                 long currentTime = accelerometer.getAtTime();
-                int limit = 40000000; //0,04 segundos
+                int limit = 35000000; //0,035 segundos
                 float minMov = 1E-6f;
                 float mov, movX, movY, movZ;
                 long timeDiff;

@@ -7,7 +7,7 @@
  * Fecha de la última modificación: 06/01/2015
  */
 
-package com.pambudev.accelerometer;
+package com.pambudev.pandacelerometro;
 
 import android.content.Context;
 

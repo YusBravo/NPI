@@ -14,7 +14,7 @@
     android:background="#ffffff"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context="com.pambudev.accelerometer.MainActivity" >
+    tools:context="com.pambudev.pandacelerometro.MainActivity" >
     
     <!-- Menu -->
 
