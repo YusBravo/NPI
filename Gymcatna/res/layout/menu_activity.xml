@@ -1,0 +1,180 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="${relativePackage}.${activityClass}" 
+    android:layout_gravity="center"
+    android:gravity="center"
+   >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/fondo"
+        android:layout_centerHorizontal="true">
+
+        <ImageView
+            android:id="@+id/menu_info"
+            android:contentDescription="@string/image_description"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/info" 
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"/>
+
+	</RelativeLayout>
+
+     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" 
+        android:layout_centerHorizontal="true">
+    
+
+		    <RelativeLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:layout_gravity="center"
+		        android:padding="10dp">
+		    
+		        <ImageView
+		            android:id="@+id/menu_logo"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="300dp"
+		            android:layout_height="100dp"
+		            android:layout_alignParentLeft="true"
+		            android:layout_alignParentTop="true"
+		            android:layout_marginTop="0dp"
+		            android:src="@drawable/logo" />
+		            	
+			</RelativeLayout>
+	
+    		<RelativeLayout
+    		    android:id="@+id/initial_layout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:visibility="visible"
+		       >
+		        <ImageView
+		            android:id="@+id/menu_juego"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="150dp"
+		            android:layout_height="55dp"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="20dp"
+		            android:src="@drawable/boton_juego" />
+		
+		        <ImageView
+		            android:id="@+id/menu_pruebas"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="150dp"
+		            android:layout_height="55dp"
+		            android:layout_below="@+id/menu_juego"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="10dp"
+		            android:src="@drawable/boton_pruebas" />
+		
+		        <ImageView
+		            android:id="@+id/menu_jim"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="200dp"
+		            android:layout_height="236dp"
+		            android:layout_below="@+id/menu_pruebas"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="50dp"
+		            android:src="@drawable/gato" />
+		     </RelativeLayout> 
+		     
+    		<RelativeLayout
+    		    android:id="@+id/pruebas_layout"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:visibility="gone"
+		       >
+		        <ImageView
+		            android:id="@+id/menu_mapa"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="150dp"
+		            android:layout_height="55dp"         
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="20dp"
+		            android:src="@drawable/boton_mapa" />
+		
+		        <TextView
+		            android:id="@+id/text_mapa"
+		            android:layout_width="150dp"
+		            android:layout_height="17dp"
+		            android:layout_below="@+id/menu_mapa"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="1dp"
+		            android:text="@string/text_mapa" />
+		        
+		        <ImageView
+		            android:id="@+id/menu_ovillo"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="150dp"
+		            android:layout_height="55dp"
+		            android:layout_below="@+id/text_mapa"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="10dp"
+		            android:src="@drawable/boton_ovillo" />
+		        
+		        <TextView
+		            android:id="@+id/text_ovillo"
+		            android:layout_width="150dp"
+		            android:layout_height="17dp"
+		            android:layout_below="@+id/menu_ovillo"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="1dp"
+		            android:text="@string/text_ovillo" />
+		        
+		        <ImageView
+		            android:id="@+id/menu_brujula"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="150dp"
+		            android:layout_height="55dp"         
+		            android:layout_below="@+id/text_ovillo"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="10dp"
+		            android:src="@drawable/boton_brujula" />
+		        
+		        <TextView
+		            android:id="@+id/text_brujula"
+		            android:layout_width="150dp"
+		            android:layout_height="17dp"
+		            android:layout_below="@+id/menu_brujula"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="1dp"
+		            android:text="@string/text_brujula" />
+		
+		        <ImageView
+		            android:id="@+id/menu_cofre"
+		            android:contentDescription="@string/image_description"
+		            android:layout_width="150dp"
+		            android:layout_height="55dp"
+		            android:layout_below="@+id/text_brujula"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="10dp"
+		            android:src="@drawable/boton_cofre" />
+		        
+		        <TextView
+		            android:id="@+id/text_cofre"
+		            android:layout_width="150dp"
+		            android:layout_height="17dp"
+		            android:layout_below="@+id/menu_cofre"
+		            android:layout_centerHorizontal="true"
+		            android:layout_marginTop="1dp"
+		            android:text="@string/text_cofre" />
+		
+		      
+		     </RelativeLayout> 
+ 
+    </LinearLayout>
+	
+</RelativeLayout>

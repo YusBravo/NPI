@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Gymcatna</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="image_description">Image</string>
+    
+    <string name="long_val_text">-</string>
+    <string name="lati_val_text">-</string>
+    <string name="lati_text">Latitud: </string>
+    <string name="long_text">Longitud: </string>
+    <string name="agq_fb_text">¡Encuentra el hilo correcto y llega hasta el ovillo!</string>
+    <string name="agv_fb_text">¡Toca a Gatobot Premium System y dile las coordenadas en grados!</string>
+    <string name="afb_fb_text">¡Muévete y busca el punto cardinal indicado!</string>
+    <string name="ams_fb_text0">¡Abre el cofre! Empieza metiendo la llave (alejar el móvil)</string>
+    <string name="ams_fb_text1">¡Ahora para arriba!</string>
+    <string name="ams_fb_text2">¡Corre, mueve el móvil a la derecha!</string>
+    <string name="ams_fb_text3">¡Sólo un poco más! ¡Para abajo!</string>
+    <string name="ams_fb_text4">¡Ya casi lo tienes! ¡Gira el móvil a la derecha para desbloquear la cerradura!</string>
+    <string name="ams_fb_textfinal">¡Conseguimos el gran tesoro! ¡Una sardina!</string>
+    <string name="agv_ruta_button">¡Ir a ruta!</string>
+    
+    <string name="text_mapa">AppGPSVoz</string>
+    <string name="text_cofre">AppMovimientoSonido</string>
+    <string name="text_brujula">AppFotoBrujula</string>
+    <string name="text_ovillo">AppGestosQR</string>
+
+</resources>

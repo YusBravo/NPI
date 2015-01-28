@@ -1,0 +1,122 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="${relativePackage}.${activityClass}" 
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/fondo" 
+        android:layout_centerHorizontal="true">
+	</RelativeLayout>
+
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentTop="true"
+       android:gravity="right"
+       android:padding="10dp" 
+       android:layout_centerHorizontal="true">
+
+       <android.gesture.GestureOverlayView
+           android:id="@+id/gestures"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:fadeOffset="800" >
+       </android.gesture.GestureOverlayView>
+
+       
+
+       <ImageView
+           android:id="@+id/ovillo"
+           android:contentDescription="@string/image_description"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="50dp"
+           android:src="@drawable/ovillo_m" />
+
+       <TableLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignLeft="@+id/gestures"
+           android:layout_alignTop="@+id/gestures" >
+
+           <TableRow
+               android:id="@+id/tableRow1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" 
+               android:background="#ffffff">
+
+               <TextView
+                   android:id="@+id/text_fb"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/agq_fb_text"
+                   android:textColor="#111111"
+                   android:width="250dp" 
+                   android:gravity="center"/>
+
+               <ImageView
+                   android:id="@+id/gato_fb"
+                   android:contentDescription="@string/image_description"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_launcher" />
+           </TableRow>
+
+       </TableLayout>
+       
+       <TextView
+           android:id="@+id/latitud_text"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_marginTop="50dp"
+           android:text="@string/lati_text"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:visibility="invisible" />
+
+       <TextView
+           android:id="@+id/latitud_value"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignBaseline="@+id/latitud_text"
+           android:layout_alignBottom="@+id/latitud_text"
+           android:layout_marginLeft="12dp"
+           android:layout_toRightOf="@+id/latitud_text"
+           android:text="@string/lati_val_text"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#444444"
+           android:visibility="invisible" />
+
+       <TextView
+           android:id="@+id/longitud_text"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_below="@+id/latitud_value"
+           android:layout_marginTop="10dp"
+           android:text="@string/long_text"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:visibility="invisible" />
+
+       <TextView
+           android:id="@+id/longitud_value"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignBaseline="@+id/longitud_text"
+           android:layout_alignBottom="@+id/longitud_text"
+           android:layout_alignLeft="@+id/latitud_value"
+           android:text="@string/long_val_text"
+           android:textAppearance="?android:attr/textAppearanceMedium"
+           android:textColor="#444444"
+           android:visibility="invisible" />
+   </RelativeLayout>
+
+</RelativeLayout>

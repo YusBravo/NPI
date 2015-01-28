@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:context="${relativePackage}.${activityClass}" 
+    android:layout_gravity="center"
+    android:gravity="center"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/fondo" 
+        android:layout_centerHorizontal="true">
+	</RelativeLayout>
+
+   <RelativeLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentTop="true"
+       android:gravity="right"
+       android:padding="10dp"
+       android:layout_centerHorizontal="true" >
+
+       <TableLayout
+           android:id="@+id/tableLayout1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+
+           <TableRow
+               android:id="@+id/tableRow1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:background="#ffffff" >
+
+               <TextView
+                   android:id="@+id/text_fb"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:text="@string/afb_fb_text"
+                   android:textColor="#111111"
+                   android:width="250dp" />
+
+               <ImageView
+                   android:id="@+id/gato_fb"
+                   android:contentDescription="@string/image_description"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_launcher" />
+           </TableRow>
+       </TableLayout>
+
+       <Spinner
+           android:id="@+id/spinner"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignTop="@+id/brujulaText"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="100dp" 
+           android:background="#ffffff"/>
+
+       <ImageView
+           android:id="@+id/brujula_fondo"
+           android:contentDescription="@string/image_description"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+           android:layout_centerHorizontal="true"
+           android:src="@drawable/brujula" />
+
+       <ImageView
+           android:id="@+id/brujula"
+           android:contentDescription="@string/image_description"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignBottom="@+id/brujula_fondo"
+           android:layout_centerHorizontal="true"
+           android:layout_marginBottom="82dp"
+           android:src="@drawable/punta_brujula" />
+
+       <TextView
+           android:id="@+id/brujulaText"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignRight="@+id/brujula"
+           android:layout_below="@+id/tableLayout1"
+           android:layout_marginTop="50dp"
+           android:text=""
+           android:visibility="gone" />
+   </RelativeLayout>
+
+</RelativeLayout>
