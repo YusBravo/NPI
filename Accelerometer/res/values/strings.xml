@@ -17,13 +17,22 @@
     <string name="sensorPowerLabel">Potencia: </string>    
     <string name="contador">0</string>
     <string name="descriptionPambil">ImageView</string>
-    <string name="feedbackString">¡Bienvenido! Elije una opción</string>
+    <string name="feedbackString">¡Bienvenido!\n¡Pulsa en una flecha para empezar!</string>
     
     <string name= "contextMenu_volver">Volver</string>
     <string name= "contextMenu_creditos">Créditos</string>
-    <string name= "contextMenu_juegos">Juegos de Pambú! Developers.</string>
-    <string name= "contextMenu_codigoYus">Código fuente (Yus Bravo)</string>
-    <string name= "contextMenu_codigoPedro">Código fuente (Pedro Bosch)</string>
+    <string name= "contextMenu_juegos">Juegos de Pambú! Dev.</string>
+    <string name= "contextMenu_codigoYus">Source Code (Yus Bravo)</string>
+    <string name= "contextMenu_codigoPedro">Source Code (Pedro Bosch)</string>
     <string name= "contextMenu_salir">Salir</string>
+    
+    <string name="ws_text">¡Bienvenido! Elije un modo de juego</string>
+    <string name="ws_test">Modo Test</string>
+    <string name="ws_onePlayer">Modo 1 jugador</string>
 
+    <string name="opm_explicacion">Observa atentamente los movimientos que te dice Pambil con sus ojos, y realízalos cuando empiece la cuenta atrás.\n ¡Pulsa "Play" para empezar!
+    </string>
+    <string name="opm_name">Pambil Dice</string>
+    <string name="opm_descNum">Cuenta atras</string>
+    <string name="opm_turnoText">Turno de Pambil</string>
 </resources>

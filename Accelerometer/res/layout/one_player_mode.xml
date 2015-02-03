@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.pambudev.pandacelerometro.OnePlayerActivity" >
+    
+    <!-- Menu -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:background="@drawable/fondo_panda"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context="com.pambudev.pandacelerometro.MainActivity" >
+
+
+    </RelativeLayout>
+
+    
+        <TextView
+            android:id="@+id/TurnoText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="70dp"
+            android:text="@string/opm_turnoText"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#ff0000"
+            android:visibility="invisible" />
+        
+   
+
+    <!-- End Menu -->
+        
+	    <ImageView
+	        android:id="@+id/timeNumImage"
+	        
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="52dp"
+	        android:layout_width="81dp"
+	        android:layout_height="90dp"
+	        android:contentDescription="@string/opm_descNum"
+	        android:visibility="invisible"
+	        android:src="@drawable/num_tres" />
+	    
+         <!-- Pambil -->
+       <ImageView
+             android:id="@+id/pambil"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerHorizontal="true"
+             android:layout_centerVertical="true"
+             android:contentDescription="@string/descriptionPambil"
+             android:src="@drawable/pambil_play" />
+    <!-- End Pambil -->
+
+<TextView
+    android:id="@+id/opm_feedbackText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/pambil"
+    android:layout_marginTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:gravity="center"
+    android:layout_centerHorizontal="true"
+    android:text="@string/opm_explicacion" 
+    android:textColor="#222222"/>
+
+ <!--  Botones -->
+	
+    <Button
+        android:id="@+id/stateButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/play" />
+    <TextView
+        android:id="@+id/rightStateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/stateButton"
+        android:layout_alignTop="@+id/stateButton"
+        android:layout_toRightOf="@+id/stateButton"
+        android:background="#FC4349"
+        android:gravity="center|right"
+        android:paddingRight="10dp"
+        android:text=""
+        android:textSize="20sp"
+        android:textColor="#ffffff" />
+	<TextView
+        android:id="@+id/leftStateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/stateButton"
+        android:layout_alignTop="@+id/stateButton"
+        android:layout_toLeftOf="@+id/stateButton"
+        android:background="#FC4349"
+        android:gravity="center|right"
+        android:paddingRight="10dp"
+        android:text=""
+        android:textSize="20sp"
+        android:textColor="#ffffff" />
+
+	<!--  End Botones  -->
+	
+</RelativeLayout>

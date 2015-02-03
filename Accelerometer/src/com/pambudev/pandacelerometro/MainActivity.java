@@ -4,7 +4,7 @@
  * Autores:
  * - José Francisco Bravo Sánchez (Yus Bravo)
  * - Pedro Fernández Bosch
- * Fecha de la última modificación: 08/01/2015
+ * Fecha de la última modificación: 03/02/2015
  */
 
 package com.pambudev.pandacelerometro;
@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.*;
+
 
 public class MainActivity extends Activity {
 
@@ -176,12 +180,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         
         //Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+       // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
         //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title);
+        ((TextView) findViewById(R.id.txtMenu)).setText("Test Mode");
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         accelerometer = new Accelerometer(this);
@@ -434,15 +441,6 @@ public class MainActivity extends Activity {
 	    });
 
 	}
-	
-	 /**
-		 * Sets up the register for context menu for the iconMenu button
-		 */
-	    private void setIconMenuButton(){
-	    	iconMenuButton = (Button) findViewById(R.id.iconMenu);        
-	        registerForContextMenu(iconMenuButton);
-	    }
-	    
 	    
 	/**
 	 * Sets up the listener for the abajo profundo button that the user
@@ -468,76 +466,92 @@ public class MainActivity extends Activity {
 
 	}
 
-	/**
-	 * Create Context Menu
-	 */
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo)
-	{
-	    super.onCreateContextMenu(menu, v, menuInfo);
-	 
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.context_menu, menu);
-	    
-	    if(stateApp == 1)
-	    	stateButton.callOnClick();
-	}
-	
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
+	 /**
+		 * Sets up the listener for menu for the iconMenu button
+		 */
+	    private void setIconMenuButton(){
+	    	iconMenuButton = (Button) findViewById(R.id.iconMenu);
+	    	
+	    	// Set up click listener
+				iconMenuButton.setOnClickListener(new OnClickListener() {              
+			       
+					@Override 
+			        public void onClick(View v) {  
+						 if(v.getId()==findViewById(R.id.iconMenu).getId()){
+							 openOptionsMenu();
+						 }
+						
+			        }  
+		    });
+	    }
+		 
+	    @Override
+	    public boolean onCreateOptionsMenu(Menu menu) {
 
-    /**
-     * item selected for Context Menu
-     */
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-    	boolean res = false;   	
-    	Toast toast;
-    	
-        switch (item.getItemId()) {
-        	case R.id.ResumeOption:
-        		res = true;
-        		break;
-            case R.id.CreditOption:
-            	toast = Toast.makeText(getApplicationContext(),
-            			"Desarrollado por:\n\n" +
-            			"- Yus Bravo (Pambú! Developers.)\n" +
-            			"- Pedro Bosch (www.pedrobosch.es)\n" +
-            			"\n" +
-            			"Los derechos de la aplicación pertenecen a Pambú! Dev.", Toast.LENGTH_SHORT);
-            	toast.setDuration(Toast.LENGTH_LONG);
-            	toast.show();
-                res = true;
-                break;
-            case R.id.GamesOption:
-            	
-            	try {
-            	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:Pamb%C3%BA!+Dev.")));
-            	} catch (android.content.ActivityNotFoundException anfe) {
-            	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Pamb%C3%BA!+Dev.")));
-            	}
-            	           	
-                res= true;
-                break;
-            case R.id.SourceCodeOptionYus:
-            	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/YusBravo/NPI/tree/master/Accelerometer")));
-                res= true;
-                break;
-            case R.id.SourceCodeOptionPedro:
-            	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pebosch/npi")));
-                res= true;
-                break;
-            case R.id.ExitOption:
-            	 finish();
-            	break;
-            default:
-                res= super.onContextItemSelected(item);
-                break;
-        }
-        
-        return res;		
-    }
+	    	super.onCreateOptionsMenu(menu);
+	    	
+	    	MenuInflater inflater = getMenuInflater();
+	 	    inflater.inflate(R.menu.context_menu, menu);
+	 	
+	        return true;
+	    }
+		
+	    @Override
+	    protected void onResume() {
+	        super.onResume();
+	    }
+
+	  
+	    /**
+	     * item selected for Menu
+	     */
+	    @Override
+	    public boolean onOptionsItemSelected(MenuItem item) {
+	    	boolean res = false;   	
+	    	Toast toast;
+	    	
+	        switch (item.getItemId()) {
+	        	case R.id.ResumeOption:
+	        		res = true;
+	        		break;
+	            case R.id.CreditOption:
+	            	toast = Toast.makeText(getApplicationContext(),
+	            			"Desarrollado por:\n\n" +
+	            			"- Yus Bravo (Pambú! Developers.)\n" +
+	            			"- Pedro Bosch (www.pedrobosch.es)\n" +
+	            			"\n" +
+	            			"Los derechos de la aplicación pertenecen a Pambú! Dev.", Toast.LENGTH_SHORT);
+	            	toast.setDuration(Toast.LENGTH_LONG);
+	            	toast.show();
+	                res = true;
+	                break;
+	            case R.id.GamesOption:
+	            	
+	            	try {
+	            	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:Pamb%C3%BA!+Dev.")));
+	            	} catch (android.content.ActivityNotFoundException anfe) {
+	            	    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=Pamb%C3%BA!+Dev.")));
+	            	}
+	            	           	
+	                res= true;
+	                break;
+	            case R.id.SourceCodeOptionYus:
+	            	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/YusBravo/NPI/tree/master/Accelerometer")));
+	                res= true;
+	                break;
+	            case R.id.SourceCodeOptionPedro:
+	            	startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/pebosch/npi")));
+	                res= true;
+	                break;
+	            case R.id.ExitOption:
+	            	 finish();
+	            	break;
+	            default:
+	                res= super.onContextItemSelected(item);
+	                break;
+	        }
+	        
+	        return res;		
+	    }
     
 }

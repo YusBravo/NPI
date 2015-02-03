@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@+id/iconMenu"
+    android:gravity="top" 
+    android:background="#ff0000"
+    >
    
     <item android:id="@+id/ResumeOption"
 	    android:title="@string/contextMenu_volver"></item>

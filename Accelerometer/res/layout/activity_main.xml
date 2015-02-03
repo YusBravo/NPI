@@ -4,43 +4,30 @@
  * Autores:
  * - José Francisco Bravo Sánchez
  * - Pedro Fernández Bosch
- * Fecha de la última modificación: 06/01/2015
+ * Fecha de la última modificación: 03/02/2015
  -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
     android:orientation="vertical"
     android:padding="10dp"
+    android:background="#ffffff"
+   
     tools:context="com.pambudev.pandacelerometro.MainActivity" >
     
-    <!-- Menu -->
-
-    <Button
-        android:id="@+id/iconMenu"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/menu" />
+    <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:padding="10dp"
+	    android:background="@drawable/fondo_panda"
+	    tools:context="com.pambudev.pandacelerometro.MainActivity" 
+	    android:alpha="0.2">    
+    </RelativeLayout>
     
-    <TextView
-        android:id="@+id/txtMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iconMenu"
-        android:layout_alignTop="@+id/iconMenu"
-        android:layout_toRightOf="@+id/iconMenu"
-        android:background="#FC4349"
-        android:gravity="center|right"
-        android:paddingRight="10dp"
-        android:text="@string/app_name"
-        android:textSize="20sp"
-        android:textColor="#ffffff" />
-
-    <!-- End Menu -->
+   
 
     <!-- Sensor X -->
 
@@ -48,7 +35,6 @@
         android:id="@+id/labelX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iconMenu"
         android:layout_marginBottom="5dp"
         android:paddingTop="8dp"
         android:textSize="12sp"
@@ -70,7 +56,6 @@
         android:id="@+id/labelMovX"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iconMenu"
         android:layout_toRightOf="@+id/izquierda"
         android:layout_marginBottom="5dp"
         android:paddingTop="8dp"
@@ -187,7 +172,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/div1"
-	    android:layout_toRightOf="@+id/iconMenu"
+	    android:layout_toRightOf="@+id/labelZ"
 	    android:contentDescription="@string/descriptionPambil"
 	    android:src="@drawable/pambil_play" />
     
@@ -269,6 +254,8 @@
 	    android:layout_above="@+id/arriba"
 	    android:layout_centerHorizontal="true"
 	    android:layout_marginBottom="25dp"
+	    android:textColor="#222222"
+	    android:gravity="center"
 	    android:text="@string/feedbackString" />
 	
 	<!-- End Feedback Text -->
@@ -337,7 +324,6 @@
         android:background="@drawable/abajo_profundo" />
 
 	<!--  End Botones  -->
-
 
 	
    

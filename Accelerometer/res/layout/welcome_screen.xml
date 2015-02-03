@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.pambudev.pandacelerometro.WelcomeScreenActivity" >
+    
+     <RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:padding="10dp"
+	    android:background="@drawable/fondo_panda"
+	    tools:context="com.pambudev.pandacelerometro.MainActivity" 
+	    android:alpha="0.2">
+
+        
+    </RelativeLayout>
+    
+  
+
+  <!--  
+    <TextView
+        android:id="@+id/ws_textWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtMenu"
+        android:layout_below="@+id/txtMenu"
+        android:layout_marginTop="16dp"
+        android:text="@string/ws_text" />
+    -->
+    
+      
+        <Button
+        android:id="@+id/ws_onePlayerButton"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/ws_testButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/menu_1jugador" />
+        
+        <Button
+        android:id="@+id/ws_twoPlayersButton"
+        android:layout_width="170dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/ws_onePlayerButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/menu_2jugadores" 
+        android:visibility="visible"/>
+        
+         <!-- Pambil -->
+     <ImageView
+             android:id="@+id/pambil"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentBottom="true"
+             android:layout_centerHorizontal="true"
+             android:contentDescription="@string/descriptionPambil"
+             android:src="@drawable/pambil_arriba" />
+    
+    <!-- End Pambil -->
+
+    <Button
+        android:id="@+id/ws_testButton"
+        android:layout_width="100dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/txtMenu"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/menu_test" />
+
+</RelativeLayout>
