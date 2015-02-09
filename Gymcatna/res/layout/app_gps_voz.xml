@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center"
+    android:id="@+id/root_layout"
      >
 	
     <RelativeLayout
@@ -22,44 +23,58 @@
          android:layout_alignParentLeft="true"
          android:layout_alignParentTop="true"
          android:layout_centerHorizontal="true"
-         android:padding="10dp" >
+         android:paddingLeft="10dp" 
+         android:paddingTop="10dp"
+         android:paddingRight="10dp"
+         android:paddingBottom="60dp">
 
-         <TableLayout
-             android:id="@+id/tableLayout1"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content" >
+         
+          <TableLayout
+           android:id="@+id/tableLayout1"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:gravity="center" >
 
-             <TableRow
-                 android:id="@+id/tableRow1"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:background="#ffffff" >
+           <TableRow
+               android:id="@+id/tableRow1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:background="@drawable/border_table"
+               android:gravity="center" >
 
-                 <TextView
-                     android:id="@+id/text_fb"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:gravity="center"
-                     android:text="@string/agv_fb_text"
-                     android:textColor="#111111"
-                     android:width="250dp" />
+               <TextView
+                   android:id="@+id/text_fb"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginRight="5dp"
+                   android:gravity="center"
+                   android:text="@string/agv_fb_text"
+                   android:textColor="#111111"
+                   android:width="250dp" />
 
-                 <ImageView
-                     android:id="@+id/gato_fb"
-                     android:contentDescription="@string/image_description"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:src="@drawable/ic_launcher" />
-             </TableRow>
-         </TableLayout>
+               <ImageView
+                   android:id="@+id/gato_fb"
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
+                   android:layout_marginRight="5dp"
+                   android:contentDescription="@string/image_description"
+                   android:src="@drawable/ic_launcher" />
 
+           </TableRow>
+       </TableLayout>
+       
          <fragment
              android:id="@+id/map"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_above="@+id/robot"
-             android:layout_marginTop="50dp"
+             android:layout_marginTop="55dp"
              class="com.google.android.gms.maps.MapFragment" />
+         
+         
 
          <ImageView
              android:id="@+id/robot"

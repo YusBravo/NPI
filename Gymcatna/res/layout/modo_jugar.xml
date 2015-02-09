@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/fondo"
+        android:paddingBottom="60dp"
+        android:paddingRight="10dp" >
+
+        <ImageView
+            android:id="@+id/menu_jim"
+            android:layout_width="120dp"
+            android:layout_height="130dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="62dp"
+            android:layout_marginLeft="30dp"
+            android:contentDescription="@string/image_description"
+            android:paddingLeft="10dp"
+            android:src="@drawable/gato" />
+
+          <Button
+              android:id="@+id/totalGames"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignBottom="@+id/menu_jim"
+              android:layout_alignParentRight="true"
+              android:layout_alignRight="@id/menu_jim"
+              android:layout_marginBottom="-40dp"
+              android:layout_marginRight="30dp"
+              android:background="@drawable/patagato"
+              android:text="@string/total_text"
+              android:textAppearance="?android:attr/textAppearanceLarge"
+              android:textColor="#FE330A"
+              android:textSize="48sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp" >
+
+            <ImageView
+                android:id="@+id/menu_logo"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:contentDescription="@string/image_description"
+                android:src="@drawable/logo" />
+
+            <ImageView
+                android:id="@+id/menu_challenge"
+                android:layout_width="190dp"
+                android:layout_height="70dp"
+                android:layout_alignRight="@+id/menu_logo"
+                android:layout_marginTop="65dp"
+                android:contentDescription="@string/image_description"
+                android:src="@drawable/challenge" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/initial_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" >
+            
+              <ImageView
+                  android:id="@+id/challenge_text"
+                  android:layout_width="280dp"
+                  android:layout_height="120dp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_centerVertical="false"
+                  android:contentDescription="@string/image_description"
+                  android:src="@drawable/challenge_text" />
+
+            <TextView
+                android:id="@+id/text_of_challenge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/challenge_text"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

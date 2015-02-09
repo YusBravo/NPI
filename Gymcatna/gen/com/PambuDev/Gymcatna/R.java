@@ -418,128 +418,149 @@ containing a value of this type.
         public static final int wallet_secondary_text_holo_dark=0x7f07001a;
     }
     public static final class drawable {
-        public static final int boton_brujula=0x7f020000;
-        public static final int boton_cofre=0x7f020001;
-        public static final int boton_juego=0x7f020002;
-        public static final int boton_mapa=0x7f020003;
-        public static final int boton_ovillo=0x7f020004;
-        public static final int boton_pruebas=0x7f020005;
-        public static final int brujula=0x7f020006;
-        public static final int cerradura=0x7f020007;
-        public static final int cofre_abierto=0x7f020008;
-        public static final int cofre_cerrado=0x7f020009;
-        public static final int cofre_cerrado0=0x7f02000a;
-        public static final int cofre_cerrado1=0x7f02000b;
-        public static final int cofre_cerrado2=0x7f02000c;
-        public static final int cofre_cerrado3=0x7f02000d;
-        public static final int cofre_cerrado4=0x7f02000e;
-        public static final int common_full_open_on_phone=0x7f02000f;
-        public static final int common_ic_googleplayservices=0x7f020010;
-        public static final int common_signin_btn_icon_dark=0x7f020011;
-        public static final int common_signin_btn_icon_disabled_dark=0x7f020012;
-        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020013;
-        public static final int common_signin_btn_icon_disabled_focus_light=0x7f020014;
-        public static final int common_signin_btn_icon_disabled_light=0x7f020015;
-        public static final int common_signin_btn_icon_focus_dark=0x7f020016;
-        public static final int common_signin_btn_icon_focus_light=0x7f020017;
-        public static final int common_signin_btn_icon_light=0x7f020018;
-        public static final int common_signin_btn_icon_normal_dark=0x7f020019;
-        public static final int common_signin_btn_icon_normal_light=0x7f02001a;
-        public static final int common_signin_btn_icon_pressed_dark=0x7f02001b;
-        public static final int common_signin_btn_icon_pressed_light=0x7f02001c;
-        public static final int common_signin_btn_text_dark=0x7f02001d;
-        public static final int common_signin_btn_text_disabled_dark=0x7f02001e;
-        public static final int common_signin_btn_text_disabled_focus_dark=0x7f02001f;
-        public static final int common_signin_btn_text_disabled_focus_light=0x7f020020;
-        public static final int common_signin_btn_text_disabled_light=0x7f020021;
-        public static final int common_signin_btn_text_focus_dark=0x7f020022;
-        public static final int common_signin_btn_text_focus_light=0x7f020023;
-        public static final int common_signin_btn_text_light=0x7f020024;
-        public static final int common_signin_btn_text_normal_dark=0x7f020025;
-        public static final int common_signin_btn_text_normal_light=0x7f020026;
-        public static final int common_signin_btn_text_pressed_dark=0x7f020027;
-        public static final int common_signin_btn_text_pressed_light=0x7f020028;
-        public static final int compass=0x7f020029;
-        public static final int fondo=0x7f02002a;
-        public static final int gato=0x7f02002b;
-        public static final int gato_bot=0x7f02002c;
-        public static final int ic_launcher=0x7f02002d;
-        public static final int ic_plusone_medium_off_client=0x7f02002e;
-        public static final int ic_plusone_small_off_client=0x7f02002f;
-        public static final int ic_plusone_standard_off_client=0x7f020030;
-        public static final int ic_plusone_tall_off_client=0x7f020031;
-        public static final int info=0x7f020032;
-        public static final int logo=0x7f020033;
-        public static final int logo_pambu=0x7f020034;
-        public static final int ovillo_m=0x7f020035;
-        public static final int powered_by_google_dark=0x7f020036;
-        public static final int powered_by_google_light=0x7f020037;
-        public static final int punta_brujula=0x7f020038;
-        public static final int robot_web=0x7f020039;
-        public static final int sardina=0x7f02003a;
+        public static final int border_table=0x7f020000;
+        public static final int boton_brujula=0x7f020001;
+        public static final int boton_cofre=0x7f020002;
+        public static final int boton_juego=0x7f020003;
+        public static final int boton_mapa=0x7f020004;
+        public static final int boton_ovillo=0x7f020005;
+        public static final int boton_pruebas=0x7f020006;
+        public static final int brujula=0x7f020007;
+        public static final int cerradura0=0x7f020008;
+        public static final int cerradura1=0x7f020009;
+        public static final int cerradura2=0x7f02000a;
+        public static final int cerradura2_0=0x7f02000b;
+        public static final int cerradura2_1=0x7f02000c;
+        public static final int cerradura2_2=0x7f02000d;
+        public static final int cerradura2_3=0x7f02000e;
+        public static final int cerradura2_4=0x7f02000f;
+        public static final int cerradura3=0x7f020010;
+        public static final int cerradura4=0x7f020011;
+        public static final int challenge=0x7f020012;
+        public static final int challenge_text=0x7f020013;
+        public static final int cofre_abierto=0x7f020014;
+        public static final int cofre_cerrado=0x7f020015;
+        public static final int common_full_open_on_phone=0x7f020016;
+        public static final int common_ic_googleplayservices=0x7f020017;
+        public static final int common_signin_btn_icon_dark=0x7f020018;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020019;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f02001a;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f02001b;
+        public static final int common_signin_btn_icon_disabled_light=0x7f02001c;
+        public static final int common_signin_btn_icon_focus_dark=0x7f02001d;
+        public static final int common_signin_btn_icon_focus_light=0x7f02001e;
+        public static final int common_signin_btn_icon_light=0x7f02001f;
+        public static final int common_signin_btn_icon_normal_dark=0x7f020020;
+        public static final int common_signin_btn_icon_normal_light=0x7f020021;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f020022;
+        public static final int common_signin_btn_icon_pressed_light=0x7f020023;
+        public static final int common_signin_btn_text_dark=0x7f020024;
+        public static final int common_signin_btn_text_disabled_dark=0x7f020025;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020026;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020027;
+        public static final int common_signin_btn_text_disabled_light=0x7f020028;
+        public static final int common_signin_btn_text_focus_dark=0x7f020029;
+        public static final int common_signin_btn_text_focus_light=0x7f02002a;
+        public static final int common_signin_btn_text_light=0x7f02002b;
+        public static final int common_signin_btn_text_normal_dark=0x7f02002c;
+        public static final int common_signin_btn_text_normal_light=0x7f02002d;
+        public static final int common_signin_btn_text_pressed_dark=0x7f02002e;
+        public static final int common_signin_btn_text_pressed_light=0x7f02002f;
+        public static final int compass=0x7f020030;
+        public static final int fondo=0x7f020031;
+        public static final int gato=0x7f020032;
+        public static final int gato_bot=0x7f020033;
+        public static final int ic_launcher=0x7f020034;
+        public static final int ic_plusone_medium_off_client=0x7f020035;
+        public static final int ic_plusone_small_off_client=0x7f020036;
+        public static final int ic_plusone_standard_off_client=0x7f020037;
+        public static final int ic_plusone_tall_off_client=0x7f020038;
+        public static final int info=0x7f020039;
+        public static final int logo=0x7f02003a;
+        public static final int logo_pambu=0x7f02003b;
+        public static final int ovillo_l=0x7f02003c;
+        public static final int ovillo_m=0x7f02003d;
+        public static final int ovillo_v=0x7f02003e;
+        public static final int patagato=0x7f02003f;
+        public static final int powered_by_google_dark=0x7f020040;
+        public static final int powered_by_google_light=0x7f020041;
+        public static final int punta_brujula=0x7f020042;
+        public static final int robot_web=0x7f020043;
+        public static final int sardina=0x7f020044;
     }
     public static final class id {
-        public static final int adjust_height=0x7f090000;
-        public static final int adjust_width=0x7f090001;
-        public static final int book_now=0x7f090010;
-        public static final int brujula=0x7f09001e;
-        public static final int brujulaText=0x7f09001c;
-        public static final int brujula_fondo=0x7f09001d;
-        public static final int buyButton=0x7f09000c;
-        public static final int buy_now=0x7f090011;
-        public static final int buy_with_google=0x7f090012;
-        public static final int cerradura=0x7f09002a;
-        public static final int cerradura2=0x7f09002c;
-        public static final int classic=0x7f090014;
-        public static final int cofre_abierto=0x7f090029;
-        public static final int cofre_cerrado=0x7f09002b;
-        public static final int donate_with_google=0x7f090013;
-        public static final int gato_fb=0x7f09001a;
-        public static final int gestures=0x7f09001f;
-        public static final int grayscale=0x7f090015;
-        public static final int holo_dark=0x7f090007;
-        public static final int holo_light=0x7f090008;
-        public static final int hybrid=0x7f090003;
-        public static final int initial_layout=0x7f09002f;
-        public static final int latitud_text=0x7f090021;
-        public static final int latitud_value=0x7f090022;
-        public static final int logo=0x7f09003c;
-        public static final int longitud_text=0x7f090023;
-        public static final int longitud_value=0x7f090024;
-        public static final int map=0x7f090025;
-        public static final int match_parent=0x7f09000e;
-        public static final int menu_brujula=0x7f090038;
-        public static final int menu_cofre=0x7f09003a;
-        public static final int menu_info=0x7f09002d;
-        public static final int menu_jim=0x7f090032;
-        public static final int menu_juego=0x7f090030;
-        public static final int menu_logo=0x7f09002e;
-        public static final int menu_mapa=0x7f090034;
-        public static final int menu_ovillo=0x7f090036;
-        public static final int menu_pruebas=0x7f090031;
-        public static final int monochrome=0x7f090016;
-        public static final int none=0x7f090002;
-        public static final int normal=0x7f090004;
-        public static final int ovillo=0x7f090020;
-        public static final int production=0x7f090009;
-        public static final int pruebas_layout=0x7f090033;
-        public static final int robot=0x7f090026;
-        public static final int rutaButton=0x7f090027;
-        public static final int sandbox=0x7f09000a;
-        public static final int sardina=0x7f090028;
-        public static final int satellite=0x7f090005;
-        public static final int selectionDetails=0x7f09000d;
-        public static final int spinner=0x7f09001b;
-        public static final int strict_sandbox=0x7f09000b;
-        public static final int tableLayout1=0x7f090017;
-        public static final int tableRow1=0x7f090018;
-        public static final int terrain=0x7f090006;
-        public static final int text_brujula=0x7f090039;
-        public static final int text_cofre=0x7f09003b;
-        public static final int text_fb=0x7f090019;
-        public static final int text_mapa=0x7f090035;
-        public static final int text_ovillo=0x7f090037;
-        public static final int wrap_content=0x7f09000f;
+        public static final int CreditOption=0x7f0a0044;
+        public static final int ExitOption=0x7f0a0047;
+        public static final int GamesOption=0x7f0a0043;
+        public static final int ResumeOption=0x7f0a0046;
+        public static final int SourceCodeOptionYus=0x7f0a0045;
+        public static final int adView=0x7f0a002d;
+        public static final int adjust_height=0x7f0a0000;
+        public static final int adjust_width=0x7f0a0001;
+        public static final int book_now=0x7f0a0010;
+        public static final int brujula=0x7f0a001d;
+        public static final int brujulaText=0x7f0a001e;
+        public static final int brujula_fondo=0x7f0a001c;
+        public static final int buyButton=0x7f0a000c;
+        public static final int buy_now=0x7f0a0011;
+        public static final int buy_with_google=0x7f0a0012;
+        public static final int cerradura=0x7f0a002c;
+        public static final int challenge_text=0x7f0a003f;
+        public static final int classic=0x7f0a0014;
+        public static final int cofre_abierto=0x7f0a002a;
+        public static final int cofre_cerrado=0x7f0a002b;
+        public static final int donate_with_google=0x7f0a0013;
+        public static final int gato_fb=0x7f0a001b;
+        public static final int gestures=0x7f0a0020;
+        public static final int grayscale=0x7f0a0015;
+        public static final int holo_dark=0x7f0a0007;
+        public static final int holo_light=0x7f0a0008;
+        public static final int hybrid=0x7f0a0003;
+        public static final int iconMenu=0x7f0a0042;
+        public static final int initial_layout=0x7f0a0030;
+        public static final int latitud_text=0x7f0a0022;
+        public static final int latitud_value=0x7f0a0023;
+        public static final int logo=0x7f0a0041;
+        public static final int longitud_text=0x7f0a0024;
+        public static final int longitud_value=0x7f0a0025;
+        public static final int map=0x7f0a0026;
+        public static final int match_parent=0x7f0a000e;
+        public static final int menu_brujula=0x7f0a0039;
+        public static final int menu_challenge=0x7f0a003e;
+        public static final int menu_cofre=0x7f0a003b;
+        public static final int menu_info=0x7f0a002e;
+        public static final int menu_jim=0x7f0a0033;
+        public static final int menu_juego=0x7f0a0031;
+        public static final int menu_logo=0x7f0a002f;
+        public static final int menu_mapa=0x7f0a0035;
+        public static final int menu_ovillo=0x7f0a0037;
+        public static final int menu_pruebas=0x7f0a0032;
+        public static final int monochrome=0x7f0a0016;
+        public static final int none=0x7f0a0002;
+        public static final int normal=0x7f0a0004;
+        public static final int ovillo=0x7f0a0021;
+        public static final int production=0x7f0a0009;
+        public static final int pruebas_layout=0x7f0a0034;
+        public static final int robot=0x7f0a0027;
+        public static final int root_layout=0x7f0a0017;
+        public static final int rutaButton=0x7f0a0028;
+        public static final int sandbox=0x7f0a000a;
+        public static final int sardina=0x7f0a0029;
+        public static final int satellite=0x7f0a0005;
+        public static final int selectionDetails=0x7f0a000d;
+        public static final int spinner=0x7f0a001f;
+        public static final int strict_sandbox=0x7f0a000b;
+        public static final int tableLayout1=0x7f0a0018;
+        public static final int tableRow1=0x7f0a0019;
+        public static final int terrain=0x7f0a0006;
+        public static final int text_brujula=0x7f0a003a;
+        public static final int text_cofre=0x7f0a003c;
+        public static final int text_fb=0x7f0a001a;
+        public static final int text_mapa=0x7f0a0036;
+        public static final int text_of_challenge=0x7f0a0040;
+        public static final int text_ovillo=0x7f0a0038;
+        public static final int totalGames=0x7f0a003d;
+        public static final int wrap_content=0x7f0a000f;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f080000;
@@ -549,8 +570,13 @@ containing a value of this type.
         public static final int app_gestos_qr=0x7f030001;
         public static final int app_gps_voz=0x7f030002;
         public static final int app_movimiento_sonido=0x7f030003;
-        public static final int menu_activity=0x7f030004;
-        public static final int splash_screen=0x7f030005;
+        public static final int banner_ad=0x7f030004;
+        public static final int menu_activity=0x7f030005;
+        public static final int modo_jugar=0x7f030006;
+        public static final int splash_screen=0x7f030007;
+    }
+    public static final class menu {
+        public static final int context_menu=0x7f090000;
     }
     public static final class raw {
         public static final int gestures=0x7f040000;
@@ -562,17 +588,21 @@ containing a value of this type.
     }
     public static final class string {
         public static final int accept=0x7f060002;
-        public static final int afb_fb_text=0x7f06002c;
+        public static final int afb_fb_text=0x7f06002e;
         public static final int agq_fb_text=0x7f06002a;
-        public static final int agv_fb_text=0x7f06002b;
-        public static final int agv_ruta_button=0x7f060033;
-        public static final int ams_fb_text0=0x7f06002d;
-        public static final int ams_fb_text1=0x7f06002e;
-        public static final int ams_fb_text2=0x7f06002f;
-        public static final int ams_fb_text3=0x7f060030;
-        public static final int ams_fb_text4=0x7f060031;
-        public static final int ams_fb_textfinal=0x7f060032;
+        public static final int agq_fb_text2=0x7f06002b;
+        public static final int agv_fb_text=0x7f06002c;
+        public static final int agv_fb_text2=0x7f06002d;
+        public static final int agv_ruta_button=0x7f060036;
+        public static final int ams_fb_text_abajo=0x7f060032;
+        public static final int ams_fb_text_alejar=0x7f06002f;
+        public static final int ams_fb_text_arriba=0x7f060030;
+        public static final int ams_fb_text_derecha=0x7f060031;
+        public static final int ams_fb_text_giroderecha=0x7f060033;
+        public static final int ams_fb_text_izquierda=0x7f060034;
+        public static final int ams_fb_textfinal=0x7f060035;
         public static final int app_name=0x7f060023;
+        public static final int challenge_text=0x7f060041;
         /**   Text for notification shown when the Android Wear apps needs to be updated. Only shown on the wearable. [CHAR LIMIT=NONE] 
          */
         public static final int common_android_wear_notification_needs_update_text=0x7f060009;
@@ -672,9 +702,17 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060020;
+        public static final int contextMenu_codigoYus=0x7f06003e;
+        public static final int contextMenu_creditos=0x7f06003c;
+        public static final int contextMenu_juegos=0x7f06003d;
+        public static final int contextMenu_salir=0x7f06003f;
+        public static final int contextMenu_volver=0x7f06003b;
+        public static final int continua_juego=0x7f060044;
         public static final int create_calendar_message=0x7f060005;
         public static final int create_calendar_title=0x7f060004;
+        public static final int creditos=0x7f060040;
         public static final int decline=0x7f060003;
+        public static final int fin_juego=0x7f060043;
         public static final int hello_world=0x7f060024;
         public static final int image_description=0x7f060025;
         public static final int lati_text=0x7f060028;
@@ -683,10 +721,11 @@ containing a value of this type.
         public static final int long_val_text=0x7f060026;
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
-        public static final int text_brujula=0x7f060036;
-        public static final int text_cofre=0x7f060035;
-        public static final int text_mapa=0x7f060034;
-        public static final int text_ovillo=0x7f060037;
+        public static final int text_brujula=0x7f060039;
+        public static final int text_cofre=0x7f060038;
+        public static final int text_mapa=0x7f060037;
+        public static final int text_ovillo=0x7f06003a;
+        public static final int total_text=0x7f060042;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
@@ -713,9 +752,20 @@ containing a value of this type.
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
          */
         public static final int AppBaseTheme=0x7f050005;
         /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f050006;

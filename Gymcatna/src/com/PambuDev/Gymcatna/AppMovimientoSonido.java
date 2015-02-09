@@ -3,28 +3,35 @@
  * Licencia Pública General de GNU (GPL) versión 3 
  * Autor:
  * José Francisco Bravo Sánchez (Yus Bravo)
- * Fecha de la última modificación: 28/01/2015
+ * Fecha de la última modificación: 09/02/2015
  * 
  */
 package com.PambuDev.Gymcatna;
 
 
+import java.util.Random;
+
 import com.PambuDev.Utilities.Accelerometer;
 import com.PambuDev.Utilities.MusicManager;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Handler;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
@@ -60,9 +67,76 @@ public class AppMovimientoSonido extends Activity {
     	NINGUNO, ARRIBA, ABAJO, DERECHA, IZQUIERDA, ALEJAR,ACERCAR, GIRODERECHA, GIROIZQUIERDA
     }
     
-    private TipoMovimiento [] movPatron = {TipoMovimiento.ALEJAR, TipoMovimiento.ARRIBA,TipoMovimiento.DERECHA,TipoMovimiento.ABAJO, TipoMovimiento.GIRODERECHA};
+  
+    //private TipoMovimiento [] movPatron;
+    Random random = new Random(); 
     private int actualPatronMov = 0;
 
+    private TipoMovimiento [][] movPatron = {
+    											{TipoMovimiento.ALEJAR, TipoMovimiento.ARRIBA,TipoMovimiento.DERECHA,TipoMovimiento.ABAJO, TipoMovimiento.GIRODERECHA},
+    											{TipoMovimiento.ALEJAR, TipoMovimiento.IZQUIERDA,TipoMovimiento.ABAJO,TipoMovimiento.DERECHA, TipoMovimiento.GIRODERECHA}
+    										};
+    
+    int indexPatron = 0;
+    /**
+	 * OnCreate Method Override 
+	 */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        actualPatronMov = 0;
+        
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        //Remove notification bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        
+        context = getBaseContext();
+       
+        setContentView(R.layout.app_movimiento_sonido);
+        
+        music = new MusicManager(context,"AppMovimientoSonido");
+        music.loadAudioResources();
+
+        accelerometer = new Accelerometer(this);
+        accelX = accelY = accelZ =  0f;
+        accelerometerInitiated = false;
+  
+        setPatronCerradura();
+        bannerAd();
+        
+        loadSoundResources();
+        sensorThread(); //Thread simultaneo para manejo del acelerometro (sensorEventListener)
+
+    }
+    
+    
+   /**
+    * set by random cerradura type
+    */
+    public void setPatronCerradura(){
+    	int r = random.nextInt(2);
+    	
+    	indexPatron = r;
+    	
+    	switch(r){
+	    	case 0:
+	    		((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura0);
+	    		break;
+	    	case 1:
+	    		((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura2_0);
+	    		break;
+    	}
+    	
+    	
+    }
+    
+    /**
+     * create thread for accelerometer and postactions
+     */
     protected void sensorThread() {
         Thread t = new Thread() {
 
@@ -90,12 +164,12 @@ public class AppMovimientoSonido extends Activity {
         public void run(){
             synchronized (this) {
                 long currentTime = accelerometer.getAtTime();
-                int limit = 35000000; //0,035 segundos
+                int limit = 50000000; //0,035 segundos
                 float minMov = 1E-6f;
                 float mov, movX, movY, movZ;
                 long timeDiff;
                 
-                if(actualPatronMov < movPatron.length){
+                if(actualPatronMov < movPatron[indexPatron].length){
 	                ChangeFeedbackText();
 	                ChangeCerradura();
                 }
@@ -124,15 +198,14 @@ public class AppMovimientoSonido extends Activity {
                     	movY = accelerometer.getMovYValue();
                     	movZ = accelerometer.getMovZValue();
                     	 
-                    	if (mov > minMov || movPatron[actualPatronMov] == TipoMovimiento.GIRODERECHA || movPatron[actualPatronMov] == TipoMovimiento.GIROIZQUIERDA) {
-                    		if(isCorrectMovPatron() && (currentTime - lastPatronMov > timeBetweenPatronMov)){
+                    	
+                    		if(movimientoBienHecho() && (currentTime - lastPatronMov > timeBetweenPatronMov)){
                     			lastPatronMov = currentTime;
                     			actualPatronMov++;
-                    			if(actualPatronMov == (movPatron.length)){
+                    			if(actualPatronMov == (movPatron[indexPatron].length)){
                     				desbloqueando = false;
                     				ChangeFeedbackText();
                     				((ImageView) findViewById(R.id.cerradura)).setVisibility(View.GONE);
-                    				((ImageView) findViewById(R.id.cerradura2)).setVisibility(View.GONE);
                     				((ImageView) findViewById(R.id.cofre_cerrado)).setVisibility(View.GONE);
                     				((ImageView) findViewById(R.id.cofre_abierto)).setVisibility(View.VISIBLE);
                     				((ImageView) findViewById(R.id.sardina)).setVisibility(View.VISIBLE);
@@ -141,8 +214,6 @@ public class AppMovimientoSonido extends Activity {
                     			}
                     		}
                     		
-                        }
-
                         lastMov = currentTime;
                     }
                     
@@ -154,6 +225,8 @@ public class AppMovimientoSonido extends Activity {
         }
     };
     
+    
+    
     /**
      * change feedback text 
      */
@@ -162,22 +235,31 @@ public class AppMovimientoSonido extends Activity {
     	
     	switch(actualPatronMov){
 	    	case 0:
-	    		textoGato.setText(R.string.ams_fb_text0);
+	    			textoGato.setText(R.string.ams_fb_text_alejar);
 	    		break;
 	    	case 1:
-	    		textoGato.setText(R.string.ams_fb_text1);
+	    		if(indexPatron == 0)
+	    			textoGato.setText(R.string.ams_fb_text_arriba);
+	    		else if(indexPatron == 1)
+	    			textoGato.setText(R.string.ams_fb_text_izquierda);
 	    		break;
 	    	case 2:
-	    		textoGato.setText(R.string.ams_fb_text2);
+	    		if(indexPatron == 0)
+	    			textoGato.setText(R.string.ams_fb_text_derecha);
+	    		else if(indexPatron == 1)
+	    			textoGato.setText(R.string.ams_fb_text_abajo);
 	    		break;
 	    	case 3:
-	    		textoGato.setText(R.string.ams_fb_text3);
+	    		if(indexPatron == 0)
+	    			textoGato.setText(R.string.ams_fb_text_abajo);
+	    		else if(indexPatron == 1)
+	    			textoGato.setText(R.string.ams_fb_text_derecha);
 	    		break;
 	    	case 4:
-	    		textoGato.setText(R.string.ams_fb_text4);
+	    			textoGato.setText(R.string.ams_fb_text_giroderecha);
 	    		break;
 			default:
-				textoGato.setText(R.string.ams_fb_textfinal);
+					textoGato.setText(R.string.ams_fb_textfinal);
 				break;
 	    }
     }
@@ -187,28 +269,37 @@ public class AppMovimientoSonido extends Activity {
      * CHange cerradura image
      */
     public void ChangeCerradura(){
-    	
-    
+ 
     	switch(actualPatronMov){
 	    	case 0:
-	    		//setMargins(cerradura1,102,74,0,0);
-	    		((ImageView) findViewById(R.id.cofre_cerrado)).setImageResource(R.drawable.cofre_cerrado0);
+	    		if(indexPatron == 0)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura0);
+	    		else if(indexPatron == 1)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura2_0);
 	    		break;
 	    	case 1:
-	    		//setMargins(cerradura1,200,74,0,0);
-	    		((ImageView) findViewById(R.id.cofre_cerrado)).setImageResource(R.drawable.cofre_cerrado1);
+	    		if(indexPatron == 0)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura1);
+	    		else if(indexPatron == 1)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura2_1);
 	    		break;
 	    	case 2:
-	    		//setMargins(cerradura1,253,56,0,0);
-	    		((ImageView) findViewById(R.id.cofre_cerrado)).setImageResource(R.drawable.cofre_cerrado2);
+	    		if(indexPatron == 0)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura2);
+	    		else if(indexPatron == 1)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura2_2);
 	    		break;
 	    	case 3:
-	    		((ImageView) findViewById(R.id.cofre_cerrado)).setImageResource(R.drawable.cofre_cerrado3);
-	    		//cerradura2.setVisibility(View.VISIBLE);
+	    		if(indexPatron == 0)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura3);
+	    		else if(indexPatron == 1)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura2_3);
 	    		break;
 	    	case 4:
-	    		((ImageView) findViewById(R.id.cofre_cerrado)).setImageResource(R.drawable.cofre_cerrado4);
-	    		//setMargins(cerradura2,135,45,0,0);
+	    		if(indexPatron == 0)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura4);
+	    		else if(indexPatron == 1)
+	    			((ImageView) findViewById(R.id.cerradura)).setImageResource(R.drawable.cerradura2_4);
 	    		break;
 			default:
 				break;
@@ -239,7 +330,7 @@ public class AppMovimientoSonido extends Activity {
     public boolean isCorrectMovPatron(){
     	boolean correct = false;
     	
-    	switch(movPatron[actualPatronMov]){
+    	switch(movPatron[indexPatron][actualPatronMov]){
 	    	 case DERECHA:
 	         	if(accelerometer.isPositiveMovX())
 	     			correct = true;
@@ -274,38 +365,77 @@ public class AppMovimientoSonido extends Activity {
     	
     	return correct;
     }
-
-    /**
-	 * OnCreate Method Override 
-	 */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        
-        actualPatronMov = 0;
-        
-        //Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-        //Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-        context = getBaseContext();
-        
-        music = new MusicManager(context,"AppMovimientoSonido");
-        music.loadAudioResources();
-        
-        setContentView(R.layout.app_movimiento_sonido);
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        accelerometer = new Accelerometer(this);
-        accelX = accelY = accelZ =  0f;
-        accelerometerInitiated = false;
-  
-        loadSoundResources();
-        sensorThread(); //Thread simultaneo para manejo del acelerometro (sensorEventListener)
-
+    
+    public boolean movimientoBienHecho(){
+    	boolean res = false;
+    	
+    	float minMov = 1E-7f;
+    	float error = 0.8f;
+    	
+    	switch(movPatron[indexPatron][actualPatronMov]){
+    	 case DERECHA:
+         	if(accelerometer.isPositiveMovX()  && Math.abs(accelerometer.getMovXValue()) > minMov
+         									   && Math.abs(accelerometer.getMovXValue())> (error*Math.abs(accelerometer.getMovZValue()))
+         									   && Math.abs(accelerometer.getMovXValue())> (error*Math.abs(accelerometer.getMovYValue())))
+     			res = true;
+         	break;
+         case IZQUIERDA:
+     		if(accelerometer.isNegativeMovX()   && Math.abs(accelerometer.getMovXValue()) > minMov
+     											&& Math.abs(accelerometer.getMovXValue())> (error*Math.abs(accelerometer.getMovZValue()))
+     										    && Math.abs(accelerometer.getMovXValue())> (error*Math.abs(accelerometer.getMovYValue())))
+     			res = true;
+         	break;
+         case ARRIBA:
+         	if(accelerometer.isPositiveMovY() && Math.abs(accelerometer.getMovYValue()) > minMov
+         									  && Math.abs(accelerometer.getMovYValue())> (error*Math.abs(accelerometer.getMovZValue()))
+         									  && Math.abs(accelerometer.getMovYValue())> (error*Math.abs(accelerometer.getMovXValue())))
+         		res = true;
+         	break;
+         case ABAJO:
+         	if(accelerometer.isNegativeMovY() && Math.abs(accelerometer.getMovYValue()) > minMov 
+         									  &&  Math.abs(accelerometer.getMovYValue())> (error*Math.abs(accelerometer.getMovZValue()))
+         									  && Math.abs(accelerometer.getMovYValue())> (error*Math.abs(accelerometer.getMovXValue())))
+         		res = true;
+         	break;
+         case ACERCAR:
+         	if(accelerometer.isPositiveMovZ() && Math.abs(accelerometer.getMovZValue()) > minMov
+         									  && Math.abs(accelerometer.getMovZValue())> (error*Math.abs(accelerometer.getMovYValue()))
+         									  && Math.abs(accelerometer.getMovZValue())> (error*Math.abs(accelerometer.getMovXValue())))
+         		res = true;
+         	break;
+         case ALEJAR:
+         	if(accelerometer.isNegativeMovZ() && Math.abs(accelerometer.getMovZValue()) > minMov
+         									  && Math.abs(accelerometer.getMovZValue())> (error*Math.abs(accelerometer.getMovYValue()))
+         									  && Math.abs(accelerometer.getMovZValue())> (error*Math.abs(accelerometer.getMovXValue())))
+         		res = true;
+         	break;
+         case GIRODERECHA:
+        	 if(accelerometer.getAccelX() < -7)
+        		 res = true;
+        	 break;
+         	default:
+         		break;
+		}
+	
+    	return res;
+    	
     }
+
+    
+    /**
+	 * set Banner Ad
+	 */
+	public void bannerAd(){
+		RelativeLayout item = (RelativeLayout)findViewById(R.id.root_layout);
+		View child = getLayoutInflater().inflate(R.layout.banner_ad, null);
+		item.addView(child);
+		 //Locate the Banner Ad in activity_main.xml
+        AdView adView = (AdView) this.findViewById(R.id.adView);
+     // Request for Ads
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Load ads into Banner Ads
+        adView.loadAd(adRequest);
+	}
     
     
     /**
@@ -343,6 +473,29 @@ public class AppMovimientoSonido extends Activity {
 		super.onDestroy();
 		
 		music.Dispose();
+	}
+	
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+
+		switch(keyCode){
+			case KeyEvent.KEYCODE_BACK:
+				Intent i = new Intent( AppMovimientoSonido.this, AppMovimientoSonido.class );
+				
+				if(!desbloqueando){
+					i.putExtra("resultado","ok");
+				}else{
+					i.putExtra("resultado","fail");
+				}
+				
+                setResult( Activity.RESULT_OK, i );
+                AppMovimientoSonido.this.finish();
+				break;
+				
+		}
+		return false;
 	}
 
 }

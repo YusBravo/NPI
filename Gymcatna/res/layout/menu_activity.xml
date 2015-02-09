@@ -5,6 +5,8 @@
     tools:context="${relativePackage}.${activityClass}" 
     android:layout_gravity="center"
     android:gravity="center"
+    android:id="@+id/root_layout"
+    android:layout_alignParentTop="true"
    >
 
     <RelativeLayout
@@ -12,19 +14,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/fondo"
-        android:layout_centerHorizontal="true">
+        android:paddingBottom="60dp"
+        android:paddingRight="10dp" >
 
         <ImageView
             android:id="@+id/menu_info"
-            android:contentDescription="@string/image_description"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:src="@drawable/info" 
-            android:layout_marginRight="5dp"
-            android:layout_marginBottom="5dp"/>
+            android:contentDescription="@string/image_description"
+            android:src="@drawable/info" />
 
 	</RelativeLayout>
 
@@ -87,6 +89,7 @@
 		            android:layout_below="@+id/menu_pruebas"
 		            android:layout_centerHorizontal="true"
 		            android:layout_marginTop="50dp"
+		            android:paddingBottom="60dp"
 		            android:src="@drawable/gato" />
 		     </RelativeLayout> 
 		     
@@ -176,5 +179,7 @@
 		     </RelativeLayout> 
  
     </LinearLayout>
+    
+   
 	
 </RelativeLayout>

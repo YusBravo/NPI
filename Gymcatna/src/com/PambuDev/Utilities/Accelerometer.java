@@ -16,7 +16,7 @@ public class Accelerometer implements AccelerometerInterface{
 	 AccelerometerHandler accelHandler;
 	 Float accelX=0f, accelY=0f, accelZ=0f, prevX=0f, prevY=0f, prevZ=0f;
 	 float minMovSide = 1E-9f; //min Value to considerate like a movement
-     float mov=0, movX=0, movY=0, movZ=0;
+    float mov=0, movX=0, movY=0, movZ=0;
 
 	    public Accelerometer(Context context){
 	        accelHandler = new AccelerometerHandler(context);
@@ -53,16 +53,16 @@ public class Accelerometer implements AccelerometerInterface{
 	    @Override
 	    public void actPrevAxisValues(){
 	    	prevX = accelX;
-            prevY = accelY;
-            prevZ = accelZ;
+           prevY = accelY;
+           prevZ = accelZ;
 	    }
 	    
 	    @Override
 	    public void actAxisMov(long timeDiff){
 	    	 mov = Math.abs((accelX + accelY + accelZ) - (prevX - prevY - prevZ)) / timeDiff;
 	    	 movX = (accelX - prevX) / timeDiff;
-             movY = (accelY - prevY) / timeDiff;
-             movZ = (accelZ - prevZ) / timeDiff;
+            movY = (accelY - prevY) / timeDiff;
+            movZ = (accelZ - prevZ) / timeDiff;
 	    }
 	    
 	    @Override
@@ -101,8 +101,8 @@ public class Accelerometer implements AccelerometerInterface{
 	    	boolean movDone = false;
 	    	
 	    
-        	if(movY < -minMovSide)
-        		movDone = true;
+       	if(movY < -minMovSide)
+       		movDone = true;
 
 	    	return movDone;
 	    }
@@ -112,9 +112,9 @@ public class Accelerometer implements AccelerometerInterface{
 	    	boolean movDone = false;
 	    	
 	    	
-        	if(movZ > minMovSide)
-        		movDone = true;
-        	
+       	if(movZ > minMovSide)
+       		movDone = true;
+       	
 	    	return movDone;
 	    }
 	    
@@ -122,9 +122,9 @@ public class Accelerometer implements AccelerometerInterface{
 	    public boolean isNegativeMovZ(){
 	    	boolean movDone = false;
 	    	
-        	if(movZ < -minMovSide)
-        		movDone = true;
-        	
+       	if(movZ < -minMovSide)
+       		movDone = true;
+       	
 	    	return movDone;
 	    }
 	    

@@ -3,7 +3,7 @@
  * Licencia Pública General de GNU (GPL) versión 3 
  * Autor:
  * José Francisco Bravo Sánchez (Yus Bravo)
- * Fecha de la última modificación: 28/01/2015
+ * Fecha de la última modificación: 09/02/2015
  * 
  * Utilizado material referido al uso de brújula realizado por Jorge Chamorro Padial y Germán Iglesias Padial
  * https://github.com/jorgechpugr/NPI-Android-Practica3
@@ -17,15 +17,19 @@ package com.PambuDev.Gymcatna;
 
 import com.PambuDev.Utilities.CameraController;
 import com.PambuDev.Utilities.MusicManager;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -34,6 +38,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,13 +89,13 @@ public class AppFotoBrujula extends Activity  implements SensorEventListener{
         this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);        
         context = getBaseContext();
         
-        music = new MusicManager(context,"AppFotoBrujula");
-        music.loadAudioResources();
-        
         cam = new CameraController(this);
 	    
 	    setContentView(R.layout.app_foto_brujula);
 	    
+	    music = new MusicManager(context,"AppFotoBrujula");
+        music.loadAudioResources();
+        
 	    //Cargamos la imagen
   		brujula = (ImageView) findViewById(R.id.brujula);
 
@@ -100,9 +105,25 @@ public class AppFotoBrujula extends Activity  implements SensorEventListener{
 		//Inciamos el manager de sensores
 		mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		
+		bannerAd();
 		setSpinner();
 		
 		
+	}
+	
+	/**
+	 * set Banner Ad
+	 */
+	public void bannerAd(){
+		RelativeLayout item = (RelativeLayout)findViewById(R.id.root_layout);
+		View child = getLayoutInflater().inflate(R.layout.banner_ad, null);
+		item.addView(child);
+		 //Locate the Banner Ad in activity_main.xml
+        AdView adView = (AdView) this.findViewById(R.id.adView);
+     // Request for Ads
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Load ads into Banner Ads
+        adView.loadAd(adRequest);
 	}
 	
 	/**
@@ -110,7 +131,7 @@ public class AppFotoBrujula extends Activity  implements SensorEventListener{
 	 */
 	public void setSpinner(){
 		Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        String[] valores = {"norte","este","sur","oeste"};
+        String[] valores = {"Select One","N","E","S","W"};
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, valores));
         spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
  
@@ -170,7 +191,7 @@ public class AppFotoBrujula extends Activity  implements SensorEventListener{
 		//Obtener el angulo sobre el eje Z
         float grado = Math.round(event.values[0]);
  
-        brujulaText.setText("Brújula: " + Float.toString(grado) + " grados");
+       // brujulaText.setText("Brújula: " + Float.toString(grado) + " grados");
  
         //Crear la animacion para rotar la imagen (Giro inverso de los grados)
         RotateAnimation ra = new RotateAnimation(
@@ -197,21 +218,29 @@ public class AppFotoBrujula extends Activity  implements SensorEventListener{
 
 	}
 	
+	/**
+	 * comprueba si el punto cardinal seleccionado en el spinner coincide con los grados actuales 
+	 * @param grado
+	 * @return
+	 */
 	private boolean CheckPuntoCardinal(float grado){
 		boolean checked = false;
 		
-		if(puntoCardinal == "sur")
-			if((grado%360) == 180)
+		if(puntoCardinal == "S"){
+			if((grado%360) > 176 && (grado%360) < 184 )
 				checked = true;
-		else if(puntoCardinal== "norte")
-			if((grado%360) == 0)
+		}else if(puntoCardinal== "N"){
+			if(((grado%360) > 356 && (grado%360) < 361) || ((grado%360) >=0 && (grado%360) < 4))
 				checked = true;
-		else if(puntoCardinal == "este")
-			if((grado%360) == 90)
+		}else if(puntoCardinal == "E"){
+			if((grado%360) > 86 && (grado%360) < 94)
 				checked = true;
-		else if(puntoCardinal == "oeste")
-			if((grado%360) == 270)
+		}else if(puntoCardinal == "W"){
+			if((grado%360) > 266 && (grado%360) < 274)
 				checked = true;
+		}
+
+		brujulaText.setText("Brújula: " + Float.toString(grado) + " grados\n Puntu cardinal" +puntoCardinal+checked );
 
 		return checked;
 	}
@@ -226,5 +255,27 @@ public class AppFotoBrujula extends Activity  implements SensorEventListener{
 		super.onDestroy();
 		
 		music.Dispose();
+	}
+	
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+
+		switch(keyCode){
+			case KeyEvent.KEYCODE_BACK:
+				Intent i = new Intent( AppFotoBrujula.this, AppFotoBrujula.class );
+				
+				if(ubicado)
+					i.putExtra("resultado","ok");
+				else
+					i.putExtra("resultado","fail");
+				
+                setResult( Activity.RESULT_OK, i );
+                AppFotoBrujula.this.finish();
+				break;
+				
+		}
+		return false;
 	}
 }

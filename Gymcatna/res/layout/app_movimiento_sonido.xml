@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     tools:context="${relativePackage}.${activityClass}"
     android:layout_gravity="center"
-    android:gravity="center" >
+    android:gravity="center" 
+    android:id="@+id/root_layout">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -18,42 +19,51 @@
    <RelativeLayout
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
        android:layout_alignParentTop="true"
+       android:layout_centerHorizontal="true"
        android:gravity="right"
-       android:padding="10dp" 
-       android:layout_centerHorizontal="true">
+       android:paddingLeft="10dp"
+       android:paddingRight="10dp"
+       android:paddingTop="10dp"
+       android:paddingBottom="60dp" >
 
        <TableLayout
            android:id="@+id/tableLayout1"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_alignLeft="@+id/gestures"
-           android:layout_alignTop="@+id/gestures" >
+           android:layout_centerHorizontal="true"
+           android:gravity="center" >
 
            <TableRow
                android:id="@+id/tableRow1"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:background="#ffffff" >
+               android:layout_gravity="center"
+               android:background="@drawable/border_table"
+               android:gravity="center" >
 
                <TextView
                    android:id="@+id/text_fb"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginRight="5dp"
                    android:gravity="center"
-                   android:text="@string/ams_fb_text0"
+                   android:text="@string/agv_fb_text"
                    android:textColor="#111111"
                    android:width="250dp" />
 
                <ImageView
                    android:id="@+id/gato_fb"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
+                   android:layout_marginRight="5dp"
+                   android:contentDescription="@string/image_description"
                    android:src="@drawable/ic_launcher" />
+
            </TableRow>
        </TableLayout>
-
+   
      
 
        <ImageView
@@ -75,26 +85,7 @@
            android:src="@drawable/cofre_abierto"
            android:visibility="invisible" />
             
-          <ImageView
-              android:id="@+id/cerradura"
-              android:layout_width="59dp"
-              android:layout_height="49dp"
-             
-              android:layout_alignTop="@+id/cofre_cerrado"
-              android:layout_marginTop="74dp"
-              android:layout_marginLeft="102dp"
-              android:src="@drawable/cerradura"
-              android:visibility="gone" />
           
-            <ImageView
-              android:id="@+id/cerradura2"
-              android:layout_width="59dp"
-              android:layout_height="49dp"     
-              android:layout_alignTop="@+id/cofre_cerrado"
-              android:layout_marginTop="37dp"
-              android:layout_marginLeft="135dp"
-              android:src="@drawable/cerradura"
-              android:visibility="gone" />
          
           
           <ImageView
@@ -104,7 +95,17 @@
            android:layout_centerHorizontal="true"
            android:layout_alignParentBottom="true"
            android:paddingBottom="30dp"
-           android:src="@drawable/cofre_cerrado0"
+           android:src="@drawable/cofre_cerrado"
+           android:visibility="visible" />
+          
+           <ImageView
+           android:id="@+id/cerradura"
+           android:layout_width="145dp"
+           android:layout_height="145dp"
+           android:layout_centerHorizontal="true"
+           android:layout_alignParentBottom="true"
+           android:paddingBottom="84dp"
+           android:src="@drawable/cerradura0"
            android:visibility="visible" />
 
          

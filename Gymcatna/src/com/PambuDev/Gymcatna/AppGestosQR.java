@@ -3,7 +3,7 @@
  * Licencia Pública General de GNU (GPL) versión 3 
  * Autor:
  * José Francisco Bravo Sánchez (Yus Bravo)
- * Fecha de la última modificación: 28/01/2015
+ * Fecha de la última modificación: 09/02/2015
  * 
  * Utilizado material referido al uso de gestos realizados por
  *  Javier Escobar Cerezo  y Julio Rodríguez Martínez 
@@ -13,10 +13,14 @@
 package com.PambuDev.Gymcatna;
 
 import java.util.ArrayList;
+import java.util.Random;
 
+import com.PambuDev.Gymcatna.Menu_Activity.MainState;
 import com.PambuDev.Utilities.IntentIntegrator;
 import com.PambuDev.Utilities.IntentResult;
 import com.PambuDev.Utilities.MusicManager;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import android.app.Activity;
 import android.content.Context;
@@ -29,10 +33,13 @@ import android.gesture.GestureOverlayView;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
 import android.gesture.Prediction;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.regex.*;
 
@@ -52,6 +59,9 @@ public class AppGestosQR  extends Activity implements OnGesturePerformedListener
 	TextView longitudValue, latitudValue;
 	String cadenaReconocida = "";
 	Context context;
+	boolean completed = false;
+	
+	Random random = new Random();
 	
 	 /**
 	 * OnCreate Method Override 
@@ -68,16 +78,15 @@ public class AppGestosQR  extends Activity implements OnGesturePerformedListener
         
         context = getBaseContext();
         
-        music = new MusicManager(context,"AppGestosQR");
-        music.loadAudioResources();
-        
-        
 	    GestureOverlayView gestureOverlayView = new GestureOverlayView(this);
 		View inflate = getLayoutInflater().inflate(R.layout.app_gestos_qr, null);
 		gestureOverlayView.addView(inflate);
 		gestureOverlayView.addOnGesturePerformedListener(this);
 		gestureLib = GestureLibraries.fromRawResource(this, R.raw.gestures);
 		setContentView(gestureOverlayView);
+		
+		 music = new MusicManager(context,"AppGestosQR");
+	     music.loadAudioResources();
 		
 		longitudValue = (TextView) findViewById(R.id.longitud_value);
         latitudValue = (TextView) findViewById(R.id.latitud_value);
@@ -86,7 +95,48 @@ public class AppGestosQR  extends Activity implements OnGesturePerformedListener
 		 {
 			 finish();
 		 }
+		 
+		 setOvilloScreen();
+		 bannerAd();
 
+	}
+	
+	/**
+	 * Get Ovillo screen (drawable puzzle {l,m,v}) with random
+	 */
+	public void setOvilloScreen(){
+		int r =random.nextInt(3);
+
+		switch(r){
+			case 0:
+				letter = "m";
+				((ImageView) findViewById(R.id.ovillo)).setImageResource(R.drawable.ovillo_m);
+				break;
+			case 1:
+				letter = "l";
+				((ImageView) findViewById(R.id.ovillo)).setImageResource(R.drawable.ovillo_l);
+				break;
+			case 2:
+				letter ="v";
+				((ImageView) findViewById(R.id.ovillo)).setImageResource(R.drawable.ovillo_v);
+				break;
+		}
+		
+	}
+	
+	/**
+	 * set Banner Ad
+	 */
+	public void bannerAd(){
+		RelativeLayout item = (RelativeLayout)findViewById(R.id.root_layout);
+		View child = getLayoutInflater().inflate(R.layout.banner_ad, null);
+		item.addView(child);
+		 //Locate the Banner Ad in activity_main.xml
+        AdView adView = (AdView) this.findViewById(R.id.adView);
+     // Request for Ads
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // Load ads into Banner Ads
+        adView.loadAd(adRequest);
 	}
 	
 	
@@ -100,8 +150,9 @@ public class AppGestosQR  extends Activity implements OnGesturePerformedListener
 			 //Otra opción es directamente coger el primer elemento que supere la predicción de 1.0
 			 if (prediction.score > 5.0) 
 			 {
-				 if(prediction.name.equals("m")){
-					 ((TextView) findViewById(R.id.text_fb)).setText("¡Bien hecho! ¡El ovillo es nuestro!");
+				 if(prediction.name.equals(letter)){
+					 ((TextView) findViewById(R.id.text_fb)).setText(R.string.agq_fb_text2);
+					 completed = true;
 					 iniciarEscaneoQR();
 				 }else{
 					 Toast.makeText(this,prediction.name.toString(), Toast.LENGTH_SHORT).show();
@@ -185,5 +236,28 @@ public class AppGestosQR  extends Activity implements OnGesturePerformedListener
 			super.onDestroy();
 			
 			music.Dispose();
+		}
+		
+		
+		
+		@Override
+		public boolean onKeyUp(int keyCode, KeyEvent event) {
+			// TODO Auto-generated method stub
+
+			switch(keyCode){
+				case KeyEvent.KEYCODE_BACK:
+					Intent i = new Intent( AppGestosQR.this, AppGestosQR.class );
+					
+					if(completed)
+						i.putExtra("resultado","ok" );
+					else
+						i.putExtra("resultado","fail");
+					
+                    setResult( Activity.RESULT_OK, i );
+                    AppGestosQR.this.finish();
+					break;
+					
+			}
+			return false;
 		}
 }

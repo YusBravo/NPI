@@ -10,13 +10,16 @@
     <string name="lati_text">Latitud: </string>
     <string name="long_text">Longitud: </string>
     <string name="agq_fb_text">¡Encuentra el hilo correcto y llega hasta el ovillo!</string>
+    <string name="agq_fb_text2">¡Bien hecho! ¡El ovillo es nuestro!</string>
     <string name="agv_fb_text">¡Toca a Gatobot Premium System y dile las coordenadas en grados!</string>
+    <string name="agv_fb_text2">Dale a ¡Ir a ruta! para iniciar navegación, o a Gatobot para dar nuevas coordenadas</string>
     <string name="afb_fb_text">¡Muévete y busca el punto cardinal indicado!</string>
-    <string name="ams_fb_text0">¡Abre el cofre! Empieza metiendo la llave (alejar el móvil)</string>
-    <string name="ams_fb_text1">¡Ahora para arriba!</string>
-    <string name="ams_fb_text2">¡Corre, mueve el móvil a la derecha!</string>
-    <string name="ams_fb_text3">¡Sólo un poco más! ¡Para abajo!</string>
-    <string name="ams_fb_text4">¡Ya casi lo tienes! ¡Gira el móvil a la derecha para desbloquear la cerradura!</string>
+    <string name="ams_fb_text_alejar">¡Open the chest! Empieza metiendo la llave (alejar el móvil)</string>
+    <string name="ams_fb_text_arriba">¡Ahora para arriba!</string>
+    <string name="ams_fb_text_derecha">¡Corre, mueve el móvil a la derecha!</string>
+    <string name="ams_fb_text_abajo">¡Sólo un poco más! ¡Para abajo!</string>
+    <string name="ams_fb_text_giroderecha">¡Ya casi lo tienes! ¡Gira el móvil a la derecha para desbloquear la cerradura!</string>
+    <string name="ams_fb_text_izquierda">¡Vamos, mueve el móvil a la izquierda!</string>
     <string name="ams_fb_textfinal">¡Conseguimos el gran tesoro! ¡Una sardina!</string>
     <string name="agv_ruta_button">¡Ir a ruta!</string>
     
@@ -24,5 +27,25 @@
     <string name="text_cofre">AppMovimientoSonido</string>
     <string name="text_brujula">AppFotoBrujula</string>
     <string name="text_ovillo">AppGestosQR</string>
-
+    
+     <string name= "contextMenu_volver">Volver</string>
+    <string name= "contextMenu_creditos">Créditos</string>
+    <string name= "contextMenu_juegos">Juegos de Pambú! Dev.</string>
+    <string name= "contextMenu_codigoYus">Source Code (Yus Bravo)</string>
+    <string name= "contextMenu_salir">Salir</string>
+    
+    <string name="creditos">Desarrollado por:\n\n
+            			Pambú! Developers. @PambuDev\n\n
+            			- Yus Bravo @yusinh8\n
+            			- Pedro Astasio @ppietro92\n
+            			- Ferrán Monzo @FerLinking\n
+            			
+            			\n 
+            			Los derechos de la aplicación pertenecen a Pambú! Dev.
+	</string>
+	
+    <string name="challenge_text"> Let see... How many\nchallenges can you overcome !?</string>
+    <string name="total_text">0</string>
+    <string name="fin_juego">ohh... you lose!\nBetter luck next time, miau!</string>
+    <string name="continua_juego">¡Lo has hecho genial!\n¡Ya viene el siguiente!</string>
 </resources>

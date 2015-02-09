@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     tools:context="${relativePackage}.${activityClass}" 
     android:layout_gravity="center"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/root_layout">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -41,36 +42,44 @@
            android:layout_marginTop="50dp"
            android:src="@drawable/ovillo_m" />
 
-       <TableLayout
+        <TableLayout
+           android:id="@+id/tableLayout1"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_alignLeft="@+id/gestures"
-           android:layout_alignTop="@+id/gestures" >
+           android:layout_centerHorizontal="true"
+           android:gravity="center" >
 
            <TableRow
                android:id="@+id/tableRow1"
                android:layout_width="wrap_content"
-               android:layout_height="wrap_content" 
-               android:background="#ffffff">
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:background="@drawable/border_table"
+               android:gravity="center" >
 
                <TextView
                    android:id="@+id/text_fb"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginRight="5dp"
+                   android:gravity="center"
                    android:text="@string/agq_fb_text"
                    android:textColor="#111111"
-                   android:width="250dp" 
-                   android:gravity="center"/>
+                   android:width="250dp" />
 
                <ImageView
                    android:id="@+id/gato_fb"
+                   android:layout_width="40dp"
+                   android:layout_height="40dp"
+                   android:layout_marginRight="5dp"
                    android:contentDescription="@string/image_description"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
                    android:src="@drawable/ic_launcher" />
-           </TableRow>
 
+           </TableRow>
        </TableLayout>
+       
+       
        
        <TextView
            android:id="@+id/latitud_text"

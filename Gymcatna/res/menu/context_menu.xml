@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_below="@+id/iconMenu"
+    android:gravity="top" 
+    android:background="#ff0000"
+    >
+   
+    
+    <item android:id="@+id/GamesOption"
+	    android:title="@string/contextMenu_juegos"
+	    android:orderInCategory="1"></item>
+	<item android:id="@+id/CreditOption"
+	    android:title="@string/contextMenu_creditos"
+	    android:orderInCategory="2"></item>
+	  <item android:id="@+id/SourceCodeOptionYus"
+	    android:title="@string/contextMenu_codigoYus"
+	    android:orderInCategory="3"></item>
+	<item android:id="@+id/ResumeOption"
+	    android:title="@string/contextMenu_volver"
+	    android:orderInCategory="4"></item>
+	<item android:id="@+id/ExitOption"
+	    android:title="@string/contextMenu_salir"
+	    android:orderInCategory="5"></item>
+
+</menu>
